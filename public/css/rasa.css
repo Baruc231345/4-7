@@ -170,7 +170,7 @@ form .fields2 .input-field1{
 form button:hover{
     background-color: #f10909;
 }
-
+/* Form's/Form Opacity
 .container form .form{
     position: absolute;
     background-color: #ffffff;
@@ -185,6 +185,7 @@ form button:hover{
     opacity: 0;
     pointer-events: none;
 }
+*/
 
 .form{
   display: flex;
@@ -228,6 +229,10 @@ form.test1 .form.third{
 }
 
 form.fields4{
+    margin-top: 5px;
+}
+
+form.fields5{
     margin-top: 5px;
 }
 form button i,
@@ -283,13 +288,25 @@ form .backBtn2 i{
     margin-right: 10px;
 }
 
+.radio3{
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
 .radio_input{
     display:none;
 }
 
-.radio_input1{
+.radio_input2{
     display:none;
 }
+
+.radio_input3{
+    display:none;
+}
+
 
 .radio_radio{
     width: 1.25em;
@@ -310,6 +327,17 @@ form .backBtn2 i{
     box-sizing: border-box;
     padding: 2px;
 }
+
+.radio_radio2{
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid #f5ed0a ;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-sizing: border-box;
+    padding: 2px;
+}
+
 
 .radio_radio::after{
     content:"";
@@ -333,6 +361,17 @@ form .backBtn2 i{
     transition: transform 0.15s;
 }
 
+.radio_radio2::after{
+    content:"";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    background: rgb(0, 0, 0);
+    transform: scale(0);
+    transition: transform 0.15s;
+}
+
 .radio_input:checked + .radio_radio::after{
     transform: scale(1);
 }
@@ -340,6 +379,11 @@ form .backBtn2 i{
 .radio_input1:checked + .radio_radio1::after{
     transform: scale(1);
 }
+
+.radio_input2:checked + .radio_radio2::after{
+    transform: scale(1);
+}
+
 
 .fields3{
     flex-direction: column;
@@ -394,3 +438,12 @@ form .backBtn2 i{
 .label-text {
   font-size: 16px;
 }
+
+.aircon {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-aircon {
+    margin-left: 10px;
+  }

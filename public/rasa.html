@@ -54,32 +54,10 @@
             </div>
 
             <div class="input-field1">
-              <div id="inputOccupation1">
-                <label>Organization Name</label>
-                <input type="text" placeholder="-" >
-              </div>
-              <div id="inputOccupation2">
-                <label>Course And Section</label>
-                <input type="text" placeholder="-" >
-              </div>
-              <div id="inputOccupation3">
-                <label>Department for Teacher</label>
-                <input type="text" placeholder="-" >
-              </div>
-              <div id="inputOccupation4">
-                <label>Department for Admin Staff</label>
-                <input type="text" placeholder="-" >
-              </div>
+              <label>Department</label>
+              <input type="text" placeholder="Enter Deparment/Organization" >
             </div>
-          </div>
-          <div class="buttons">
-            <button class="nextBtn">
-              <span class="btnText">Next</span>
-              <i class="uil uil-navigator"></i>
-            </button>
 
-            <button type="submit" id="btnText">Testing Button
-            </button>
           </div>
         </div>
       </div>
@@ -100,18 +78,19 @@
             </div>
 
             <div class="input-field">
+              <label>Event Description</label>
+              <input type="text" placeholder="Enter Description">
+            </div>
+
+            <div class="input-field">
               <label>Expected Participants</label>
               <input type="number" placeholder="# of Participants" >
             </div>
 
-            <div class="input-field">
-              <label>Event Name</label>
-              <input type="text" placeholder="Enter Event Name">
-            </div>
 
             <div class="input-field">
-              <label>Event Name</label>
-              <input type="text" placeholder="Enter Event Name" >
+              <label>Purpose/Objective</label>
+              <input type="text" placeholder="Specify the purpose" >
             </div>
 
           </div>
@@ -173,6 +152,7 @@
             <p class="text">*please check all equipment you plan to use</p>
             <div class="fields4">
 
+
               <p class="text1">MIS/IT</p>
               <label for="myRadioId_1" class="radio2">
                 <input type="checkbox" name="myRadioField" id="myRadioId_1" class="radio_input1">
@@ -201,61 +181,59 @@
 
             <div class="fields5">
               <p class="text1">Bag</p>
-              <label for="myRadioId_1" class="radio2">
-                <input type="checkbox" name="myRadioField" id="myRadioId-1" class="radio_input1">
+              <label for="myRadioId-1" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-1" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Chair/s
               </label>
   
-              <label for="myRadioId_2" class="radio2">
-                <input type="checkbox" name="myRadioField" id="myRadioId-2" class="radio_input1">
+              <label for="myRadioId-2" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-2" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Table/s
               </label>
   
-              <label for="myRadioId_3" class="radio2">
-                <input type="checkbox" name="myRadioField" id="myRadioId-3" class="radio_input1">
+              <label for="myRadioId-3" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-3" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Black Panel
               </label>
   
-              <label for="myRadioId_4" class="radio2">
-                <input type="checkbox" name="myRadioField" id="myRadioId-4" class="radio_input1">
+              <label for="myRadioId-4" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-4" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Whiteboard
               </label>
 
-              <label for="myRadioId_5" class="radio2">
-                <input type="checkbox" name="myRadioField" id="myRadioId-5" class="radio_input1">
+              <label for="myRadioId-5" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-5" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Whiteboard
               </label>
 
-              <label for="myRadioId_6" class="radio2">
-                <input type="checkbox" name="myRadioField" id="myRadioId-6" class="radio_input1">
+              <div class ="aircon">
+              <label for="myRadioId-6" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-6" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Aircon Time
               </label>
 
-              <label for="myRadioId_7" class="radio2">
-                <input type="checkbox" name="myRadioField" id="myRadioId-7" class="radio_input1">
+              <div class="input-aircon">
+                <input type="time" placeholder="Start of Aircon Time">
+              </div>
+
+              <div class="input-aircon">
+                <input type="time" placeholder="End of Aircon Time">
+              </div>
+              </div>
+
+              <label for="myRadioId-7" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-7" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Other: 
               </label>
             </div>
 
-          <div class="buttons">
-            <button class="backBtn">
-              <span class="btnText">Back</span>
-              <i class="uil uil-navigator"></i>
-            </button>
-
-            <button class="nextBtn2">
-              <span class="btnText">Next</span>
-              <i class="uil uil-navigator"></i>
-            </button>
-
-          </div>
         </div>
         </div>
         </div>
@@ -305,13 +283,6 @@
 <script src="js/rasajs.js"></script>
 <script>
   const form = document.querySelector('#form')
-
-
-
-
-
-
-
 
 </script>
 </html>
