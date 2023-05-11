@@ -14,7 +14,7 @@ body{
 .container{
     position: relative;
     max-width: 900px;
-    height: 3000px;
+    height: 2000px;
     width: 100%;
     margin-bottom: 15px ;
     border-radius: 6px;
@@ -303,7 +303,7 @@ form .backBtn2 i{
     display:none;
 }
 
-.radio_input3{
+.radio_input1{
     display:none;
 }
 
@@ -447,3 +447,12 @@ form .backBtn2 i{
   .input-aircon {
     margin-left: 10px;
   }
+
+.other {
+    display: flex;
+    align-items: center;
+}
+
+.input-other {
+margin-left: 10px;
+}

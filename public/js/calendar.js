@@ -35,7 +35,7 @@ const months = [
   "October",
   "November",
   "December",
-  "Testing"
+  "Testing",
 ];
 
 // const eventsArr = [

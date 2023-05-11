@@ -56,27 +56,6 @@ const checkPending = (req, res, next) => {
 };
 */
 
-router.get("/editUserView/:id", (req, res) => {
-  const userId = req.params.id;
-  console.log(userId);
-  
-  const query = "SELECT * FROM user WHERE id = ?";
-  db.query(query, [userId], function(error, data){
-    if (error){
-      throw error;
-    } else {
-      if (data.length > 0) {
-        const user = data[0];
-        res.locals.userId = userId;
-        res.render("editUserView1", { user: user });
-      } else {
-        res.status(404).send("User not found");
-      }
-    }
-  });
-});
-
-
 const adminMiddleware = (req, res, next) => {
   const userId = req.user.id;
   db.query("SELECT * FROM user WHERE id = ?", [userId], (err, results) => {
@@ -150,6 +129,108 @@ router.get("/accesorRegular",loggedIn, dashboardAccessMiddleware, (req , res) =>
   res.sendFile("accesor_regular.html", {root: "./public/"});
 })
 
+router.get("/submitrasa", (req , res) => {
+  const storedData = localStorage.getItem('myData');
+  const data = JSON.parse(storedData);
+  res.render("submitrasa", data);
+});
+
+router.get("/pdfrasa", async (req, res) => {
+  const puppeteer = require('puppeteer');
+  const fs = require('fs');
+  console.log("Clicked");
+  try {
+    const browser = await puppeteer.launch({ headless: "new" });
+    const page = await browser.newPage();
+    const url = "http://localhost:3005/submitRasa"
+    await page.goto(url, {waitUntil: "load"});
+    const pdfBuffer = await page.pdf();
+    fs.writeFileSync('example.pdf', pdfBuffer);
+    await page.pdf({path: "page.pdf", width:"100px"});
+    await browser.close();
+    res.send('PDF generated successfully');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while generating PDF');
+  }
+
+  const { exec } = require('child_process');
+exec('start example.pdf', (err, stdout, stderr) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(stdout);
+});
+});
+
+router.get("/editUserView/:id", (req, res) => {
+  const userId = req.params.id;
+  console.log(userId);
+  
+  const query = "SELECT * FROM user WHERE id = ?";
+  db.query(query, [userId], function(error, data){
+    if (error){
+      throw error;
+    } else {
+      if (data.length > 0) {
+        const user = data[0];
+        res.locals.userId = userId;
+        res.render("editUserView1", { user: user });
+      } else {
+        res.status(404).send("Rasa form is not found");
+      }
+    }
+  });
+});
+
+router.get('/ejsrasa/:id', (req,res) => {
+  const rasaID = req.params.id;
+  console.log(rasaID);
+  const query = "SELECT * FROM rasa_database.inputted_table WHERE id = ?";
+  db.query(query, [rasaID], function(error, data){
+    if (error){
+      throw error;
+    } else {
+      if (data.length > 0) {
+        const inputted_table = data[0];
+        res.locals.rasaID = rasaID;
+        res.render("submitrasa", { inputted_table: inputted_table });
+      } else {
+        res.status(404).send("Rasa not found");
+      }
+    }
+  });
+});
+
+router.get('/pdf/:id', async (req, res) => {
+  const puppeteer = require('puppeteer');
+  const fs = require('fs');
+  const rasaID = req.params.id;
+  const url = `http://localhost:3005/ejsrasa/${rasaID}`;
+
+  try {
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.goto(url, {waitUntil: "load"});
+    const pdfBuffer = await page.pdf();
+    fs.writeFileSync(`rasa_${rasaID}.pdf`, pdfBuffer);
+    await browser.close();
+    res.download(`rasa_${rasaID}.pdf`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while generating PDF');
+  }
+});
+
+router.get('/open-pdf/:id', (req, res) => {
+  const rasaID = req.params.id;
+  const { open } = require('open');
+  open(`rasa_${rasaID}.pdf`);
+});
+
+
+
 router.put('/approve/:id', (req, res) => {
   console.log("redritect")
   const userId = req.params.id;
@@ -171,6 +252,8 @@ router.put('/approve/:id', (req, res) => {
     }
   );
 });
+
+
 
 router.get("/logout", logout);
 router.get("/newreg", newreg);

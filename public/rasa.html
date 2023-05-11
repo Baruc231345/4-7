@@ -12,7 +12,7 @@
 
 <body>
   <div class="container">
-    <header>Registration</header>
+    <header>Rasa Form</header>
       <form onsubmit="return false;" id="form">
       <div class="form first">
         <div class="details personal">
@@ -21,7 +21,7 @@
           <div class="fields1">
             <div class="input-field">
               <label>Full Name</label>
-              <input type="text" placeholder="Enter your name" >
+              <input type="text" id="full_name"placeholder="Enter your name" >
             </div>
 
             <div class="input-field">
@@ -29,39 +29,11 @@
               <input type="text" placeholder="Enter your mobile number" >
             </div>
 
-            <div class="input-field">
-              <label for = "start_date">Start Date</label>
-              <input type="date" id="start_date" placeholder="Enter START date" >
-            </div>
 
-            <div class="input-field">
-              <label for ="end_date">End Date</label>
-              <input type="date" id="end_date" placeholder="Enter END date" >
-            </div>
 
           </div>
-
-          <span class="title2">Requestor Position</span>
-          <div class="fields2">
-            <div class="input-field1">
-              <label for="position">Position:</label>
-              <select id="position" name="position" onchange="showInput()">
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
-                <option value="student-leader">Student Leader</option>
-                <option value="admin-staff">Admin Staff</option>
-              </select>
-            </div>
-
-            <div class="input-field1">
-              <label>Department</label>
-              <input type="text" placeholder="Enter Deparment/Organization" >
-            </div>
-
           </div>
         </div>
-      </div>
-
       <div class="form second">
         <div class="details personal">
           <span class="title">Event Information</span>
@@ -69,17 +41,17 @@
           <div class="fields2">
             <div class="input-field">
               <label>Event Name</label>
-              <input type="text" placeholder="Enter Event Name" >
+              <input type="text" id= "event_name" placeholder="Enter Event Name" >
             </div>
 
             <div class="input-field">
               <label>Event Date/Day</label>
-              <input type="date" placeholder="Date" >
+              <input type="date" id= "event_day" placeholder="Date" >
             </div>
 
             <div class="input-field">
               <label>Event Description</label>
-              <input type="text" placeholder="Enter Description">
+              <input type="text" id ="event_description" placeholder="Enter Description">
             </div>
 
             <div class="input-field">
@@ -93,7 +65,22 @@
               <input type="text" placeholder="Specify the purpose" >
             </div>
 
-          </div>
+            <div class="input-field">
+              <label>How many days do you require use of the facility?</label>
+              <input type="text" placeholder="Specify the days" >
+            </div>
+
+            <div class="input-field">
+              <label>Start Time</label>
+              <input type="time" id = "start_time" placeholder="include set-up time or ingress" >
+            </div>
+
+            <div class="input-field">
+              <label>End Time</label>
+              <input type="time" id = "end_time" placeholder="include break-down time or egress" >
+            </div>
+            </div>  
+
 
           <span class="title">Facilities Needed</span>
           <p class="text">*please check all rooms/facilities you plan to use</p>
@@ -152,7 +139,6 @@
             <p class="text">*please check all equipment you plan to use</p>
             <div class="fields4">
 
-
               <p class="text1">MIS/IT</p>
               <label for="myRadioId_1" class="radio2">
                 <input type="checkbox" name="myRadioField" id="myRadioId_1" class="radio_input1">
@@ -179,7 +165,7 @@
               </label>
             </div>
 
-            <div class="fields5">
+                        <div class="fields5">
               <p class="text1">Bag</p>
               <label for="myRadioId-1" class="radio3">
                 <input type="checkbox" name="myRadioField" id="myRadioId-1" class="radio_input2">
@@ -205,34 +191,35 @@
                 Whiteboard
               </label>
 
-              <label for="myRadioId-5" class="radio3">
-                <input type="checkbox" name="myRadioField" id="myRadioId-5" class="radio_input2">
-                <div class="radio_radio2"></div>
-                Whiteboard
-              </label>
+              <div class="aircon">
+                <label for="myRadioId-6" class="radio3">
+                  <input type="checkbox" name="myRadioField" id="myRadioId-6" class="radio_input2">
+                  <div class="radio_radio2"></div>
+                  Aircon Time
+                </label>
+              
+                <div class="input-aircon">
+                  <input type="time" placeholder="Start of Aircon Time" id="start-time" disabled>
+                </div>
+              
+                <p class="text1">to</p>
+              
+                <div class="input-aircon">
+                  <input type="time" placeholder="End of Aircon Time" id="end-time" disabled>
+                </div>
 
-              <div class ="aircon">
-              <label for="myRadioId-6" class="radio3">
-                <input type="checkbox" name="myRadioField" id="myRadioId-6" class="radio_input2">
-                <div class="radio_radio2"></div>
-                Aircon Time
-              </label>
 
-              <div class="input-aircon">
-                <input type="time" placeholder="Start of Aircon Time">
-              </div>
+                <div class="input-other">
+                  <label for="myRadioId-7" class="radio3">
+                    <input type="checkbox" name="myRadioField" id="myRadioId-7" class="radio_input2" onclick="toggleOtherInput(this)">
+                    <div class="radio_radio2"></div>
+                    Other: 
+                  </label>
+                
+                  <input type="text" placeholder="Other/s" id="otherInput" disabled>
+                </div>
+                
 
-              <div class="input-aircon">
-                <input type="time" placeholder="End of Aircon Time">
-              </div>
-              </div>
-
-              <label for="myRadioId-7" class="radio3">
-                <input type="checkbox" name="myRadioField" id="myRadioId-7" class="radio_input2">
-                <div class="radio_radio2"></div>
-                Other: 
-              </label>
-            </div>
 
         </div>
         </div>
@@ -263,15 +250,7 @@
                 </label>
               </div>
               
-
-              <div class="buttons">
-              <button class="backBtn2">
-                <span class="btnText">Back</span>
-                <i class="uil uil-navigator"></i>
-              </button>
-              <button class="nextBtn3">
-                <span class="btnText">Next</span>
-                <i class="uil uil-navigator"></i>
+              <button type="submit" id="btnText">Testing Button
               </button>
             </div>
   
@@ -280,9 +259,58 @@
       </form>
 </body>
 
-<script src="js/rasajs.js"></script>
-<script>
-  const form = document.querySelector('#form')
+<script src="js/rasajs.js"></script>  
+</html>
 
-</script>
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Testing</title>
+
+</head>
+<body>
+  <form id="myForm" method="POST" action="/submitrasa">
+    <label for="full_name">Full Name:</label>
+    <input type="text" id="full_name" name="full_name" value="">
+
+    <label for="event_name">Event Name:</label>
+    <input type="text" id="event_name" name="event_name" value="">
+
+    <label for="event_description">Event Description:</label>
+    <input type="text" id="event_description" name="event_description" value="">
+
+    <label for="event_day">Event Day:</label>
+    <input type="text" id="event_day" name="event_day" value="">
+
+    <label for="start_time">Start Time:</label>
+    <input type="text" id="start_time" name="start_time" value="">
+
+    <label for="end_time">End Time:</label>
+    <input type="text" id="end_time" name="end_time" value="">
+    
+    <button type="submit" id="submit">Submit</button>
+  </form>
+  <script>
+    const form = document.getElementById("myForm");
+    const submitBtn = document.getElementById("submit");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const data = {
+        full_name: document.getElementById("full_name").value,
+        event_name: document.getElementById("event_name").value,
+        event_description: document.getElementById("event_description").value,
+        event_day: document.getElementById("event_day").value,
+        start_time: document.getElementById("start_time").value,
+        end_time: document.getElementById("end_time").value,
+      };
+
+      localStorage.setItem("myData", JSON.stringify(data));
+      window.location.href = "/submitrasa";
+    });
+  </script>
+</body>
 </html>

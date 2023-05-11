@@ -6,6 +6,7 @@ const form = document.querySelector("form"),
         backBtn2 = form.querySelector(".backBtn2"),
         allInput = form.querySelectorAll(".first input");
 
+
 document.addEventListener('DOMContentLoaded', () => {
   const positionLabel = document.querySelector('#position label').textContent;
   const inputFieldValues = Array.from(document.querySelectorAll('.input-field2 input')).map(input => input.value);
@@ -18,71 +19,125 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(`Input Field Values: ${inputFieldValues}`);
   }
 });
-
-// Switching Opacity Forms
-nextBtn.addEventListener("click", ()=> {
-    allInput.forEach(input => {
-        if(input.value == ""){
-            form.classList.add('test');
-        }else{
-            //form.classList.remove('test');
-        }
-    })
-})
-backBtn.addEventListener("click", () => form.classList.remove('test'));
-backBtn2.addEventListener("click", () => {
-  form.classList.add('test');
-  form.classList.remove('test1')
-});
-nextBtn2.addEventListener("click", () => {
-  form.classList.add('test1');
-  form.classList.remove('test')
-});
-
-
-// Dropdown
-function showInput() {
-    var position = document.getElementById("position").value;
-    var inputFieldsToHide = ["inputOccupation1", "inputOccupation2", "inputOccupation3", "inputOccupation4"];
-
-    for (var i = 0; i < inputFieldsToHide.length; i++) {
-      var inputFieldToHide = document.getElementById(inputFieldsToHide[i]);
-
-      if (position === "student" && (i === 0 || i === 2 || i === 3)) {
-        inputFieldToHide.style.display = "none";
-      } else if (position === "teacher" && (i === 0 || i === 1 || i === 3)) {
-        inputFieldToHide.style.display = "none";
-      } else if (position === "student-leader" && (i === 0 || i === 1 || i === 2)) {
-        inputFieldToHide.style.display = "none";
-      } else if (position === "admin-staff" && (i === 1 || i === 2 || i === 3)) {
-        inputFieldToHide.style.display = "none";
-      } else {
-        inputFieldToHide.style.display = "block";
-      }
-    }
-  }
-  var inputFieldsToHide = ["inputOccupation1", "inputOccupation2", "inputOccupation3", "inputOccupation4"];
-  for (var i = 0; i < inputFieldsToHide.length; i++) {
-    var inputFieldToHide = document.getElementById(inputFieldsToHide[i]);
-  inputFieldToHide.style.display = "none";
-}
-
+  
 //////////////////-------------------------------------
 const start_date1 = document.getElementById("start_date");
 const end_date1 = document.getElementById("end_date");
 
-form.addEventListener("submit",() => {
-  const rasatesting = {
-    start_date: start_date1.value,
-    end_date: end_date1.value
-  };  
+const full_name1 = document.getElementById("full_name");
+const event_name1 = document.getElementById("event_name");
+const event_day1 = document.getElementById("event_day");
+const start_time1 = document.getElementById("start_time");
+const end_time1 = document.getElementById("end_time");
+const event_description1 = document.getElementById("event_description");
 
-  console.log(rasatesting)
-  fetch("/api/rasa", {
+form.addEventListener("submit", () => {
+  const start_time = start_time1.value;
+  const end_time = end_time1.value;
+  const full_name = full_name1.value;
+  const event_name= event_name1.value
+  const event_description = event_description1.value;
+  const event_day = event_day1.value;
+
+  // Create an object to store the start and end times
+  const data = {
+    start_time: start_time,
+    end_time: end_time,
+    full_name: full_name,
+    event_name: event_name,
+    event_description: event_description,
+    event_day: event_day
+
+  };
+
+  // Serialize the data object to a JSON string
+  const data_serialized = JSON.stringify(data);
+
+  // Store the serialized data in localStorage
+  localStorage.setItem('myData', data_serialized);
+
+  // Redirect to another page
+  window.location.href = "/submitRasa";
+});
+
+/*
+const form = document.getElementById("myForm");
+const submitBtn = document.getElementById("submit");
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const data = {
+    full_name: document.getElementById("full_name").value,
+    event_name: document.getElementById("event_name").value,
+    event_description: document.getElementById("event_description").value,
+    event_day: document.getElementById("event_day").value,
+    start_time: document.getElementById("start_time").value,
+    end_time: document.getElementById("end_time").value,
+  };
+
+  localStorage.setItem("myData", JSON.stringify(data));
+  window.location.href = "/submitrasa";
+});
+</script>
+*/
+
+
+
+/*form.addEventListener("submit", () => {
+  var startTime = document.getElementById("start_time").value;
+  var endTime = document.getElementById("end_time").value;
+  if (endTime < startTime) {
+    alert("End time cannot be earlier than start time");
+  } else {    
+    const rasatesting = {
+      full_name: full_name1.value,
+      event_name: event_name1.value,
+      event_description: event_description1.value,
+      event_day: event_day1.value,
+      start_time: startTime,
+      end_time: endTime
+    };  
+    console.log(rasatesting)
+    fetch("/api/rasa", {
       method: "POST",
       body: JSON.stringify(rasatesting),
       headers: {
-          "Content-type": "application/json"
+        "Content-type": "application/json"
       }   
-  })
+    })
+    const fullName = document.getElementById("full_name").value;
+    document.getElementById("fullNameDisplay").innerHTML = fullName;
+  }
+  window.location.href = "/submitrasa"
 })
+
+*/
+
+
+
+const checkbox = document.getElementById('myRadioId-6');
+const startTimeInput = document.getElementById('start-time');
+const endTimeInput = document.getElementById('end-time');
+
+checkbox.addEventListener('change', function() {
+  if (this.checked) {
+    startTimeInput.disabled = false;
+    endTimeInput.disabled = false;
+  } else {
+    startTimeInput.disabled = true;
+    endTimeInput.disabled = true;
+  }
+});
+
+checkbox.addEventListener('change', function() {
+  if (!this.checked) {
+    startTimeInput.value = '';
+    endTimeInput.value = '';
+  }
+});
+
+function toggleOtherInput(checkbox) {
+  var otherInput = document.getElementById("otherInput");
+  otherInput.disabled = !checkbox.checked;
+}

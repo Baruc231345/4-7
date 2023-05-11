@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const cookie = require("cookie-parser");
 const PORT = process.env.PORT || 3005;
+const cors = require('cors');
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.get("/editUserView/css/editUserView.css", (req, res) => {
@@ -25,3 +26,8 @@ db.connect((err)=>{
 app.use("/", require("./routes/pages"));
 app.use("/api", require("./controllers/auth")); 
 app.listen(PORT);
+
+
+
+
+    
