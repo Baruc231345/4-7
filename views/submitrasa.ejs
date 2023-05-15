@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/rasa.css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>Summary Rasa Form</header>
+      <form onsubmit="return false;" id="form">
+      <div class="form first">
+        <div class="details personal">
+          <span class="title">Personal Details</span>
+
+          <div class="fields1">
+            <div class="input-field">
+              <label>Full Name</label>
+              <input type="text" id="full_name" value="<%= inputted_table.full_name %>" >
+            </div>
+
+            <div class="input-field">
+              <label>Contact Number </label>
+              <input type="text" placeholder="Enter your mobile number" >
+            </div>
+          </div>
+        </div>
+      <div class="form second">
+        <div class="details personal">
+          <span class="title">Event Information</span>
+
+          <div class="fields2">
+            <div class="input-field">
+              <label>Event Name</label>
+              <input type="text" id= "event_name" value="<%= inputted_table.event_name %>" >
+            </div>
+
+            <div class="input-field">
+              <label>Event Date/Day</label>
+              <input type="date" id= "event_day" value="<%= inputted_table.event_day %>" >
+            </div>
+
+            <div class="input-field">
+              <label>Event Description</label>
+              <input type="text" id ="event_description" value="<%= inputted_table.event_description %>">
+            </div>
+
+            <div class="input-field">
+              <label>Expected Participants</label>
+              <input type="number" placeholder="# of Participants" >
+            </div>
+
+
+            <div class="input-field">
+              <label>Purpose/Objective</label>
+              <input type="text" value="<%= rasaID %>" >
+            </div>
+
+            <div class="input-field">
+              <label>How many days do you require use of the facility?</label>
+              <input type="text" placeholder="Specify the days" >
+            </div>
+
+            <div class="input-field">
+              <label>Start Time</label>
+              <input type="time" id = "start_time" value="<%= inputted_table.start_time %>" >
+            </div>
+
+            <div class="input-field">
+              <label>End Time</label>
+              <input type="time" id = "end_time" value="<%= inputted_table.end_time %>" >
+            </div>
+            </div>  
+
+              <div class="aircon">
+                <label for="myRadioId-6" class="radio3">
+                  <input type="checkbox" name="myRadioField" id="myRadioId-6" class="radio_input2">
+                  <div class="radio_radio2"></div>
+                  Aircon Time
+                </label>
+              
+                <div class="input-aircon">
+                  <input type="time" placeholder="Start of Aircon Time" id="start-time" disabled>
+                </div>
+              
+                <p class="text1">to</p>
+              
+                <div class="input-aircon">
+                  <input type="time" placeholder="End of Aircon Time" id="end-time" disabled>
+                </div>
+
+
+                <div class="input-other">
+                  <label for="myRadioId-7" class="radio3">
+                    <input type="checkbox" name="myRadioField" id="myRadioId-7" class="radio_input2" onclick="toggleOtherInput(this)">
+                    <div class="radio_radio2"></div>
+                    Other: 
+                  </label>
+                
+                  <input type="text" placeholder="Other/s" id="otherInput" disabled>
+                  <button type="button" id="btnText" onclick="handleClick()">Html to PDF</button>
+                </div>
+        </div>
+        </div>
+        </div>
+          </div>
+          </div>
+      </form>
+</body>
+
+
+<script>
+/*
+function handleClick() {
+  window.location.href = "/pdfrasa"
+}
+    const storedData = localStorage.getItem('myData');
+    const data = JSON.parse(storedData);
+
+    const fullNameInput = document.getElementById("full_name");
+    fullNameInput.value = data.full_name;
+
+    const eventNameInput = document.getElementById("event_name");
+    eventNameInput.value = data.event_name;
+
+    const eventDescriptionValue = document.getElementById("event_description");
+    eventDescriptionValue.value = data.event_description;
+
+    const eventDayValue = document.getElementById("event_day");
+    eventDayValue.value = data.event_day;
+
+    const startTimeValue = document.getElementById("start_time");
+    startTimeValue.value = data.start_time;
+
+    const endTimeValue = document.getElementById("end_time");
+    endTimeValue.value = data.end_time;
+    // Use the data as needed
+    
+    console.log(data.full_name);
+    console.log(data.event_name);
+    console.log(data.event_description);
+    console.log(data.event_day);
+    console.log(data.start_time);
+    console.log(data.end_time);
+
+      // Create a formData object and add the form data to it
+  const formData = new FormData();
+  formData.append('full_name', fullNameInput.value);
+  formData.append('event_name', eventNameInput.value);
+  formData.append('event_description', eventDescriptionValue.value);
+  formData.append('event_day', eventDayValue.value);
+  formData.append('start_time', startTimeValue.value);
+  formData.append('end_time', endTimeValue.value);
+
+  // Send the formData object as a POST request to /pdfrasa
+  fetch('/pdfrasa', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    console.log('Data sent successfully');
+  })
+  .catch(error => {
+    console.error('Error sending data:', error);
+  });
+  
+  */
+</script>
+</html>

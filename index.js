@@ -11,6 +11,12 @@ app.get("/editUserView/css/editUserView.css", (req, res) => {
     res.sendFile(__dirname + "/public/css/editUserView.css");
   });
 
+app.use(bodyParser.urlencoded({extended:true}))
+app.get("/ejsrasa/css/rasa.css", (req, res) => {
+    res.sendFile(__dirname + "/public/css/rasa.css");
+  });
+
+
   
 app.use("/js", express.static(__dirname + "/public/js"))
 app.use("/css", express.static(__dirname + "/public/css"))

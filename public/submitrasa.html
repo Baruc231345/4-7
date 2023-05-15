@@ -12,7 +12,7 @@
 
 <body>
   <div class="container">
-    <header>Summary Rasa Form</header>
+    <header>Rasa Form</header>
       <form onsubmit="return false;" id="form">
       <div class="form first">
         <div class="details personal">
@@ -144,51 +144,82 @@
                 <input type="checkbox" name="myRadioField" id="myRadioId_1" class="radio_input1">
                 <div class="radio_radio1"></div>
                 Sound System
+
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Sound System" id="sound-system_input" disabled>
+                </div>         
               </label>
   
               <label for="myRadioId_2" class="radio2">
                 <input type="checkbox" name="myRadioField" id="myRadioId_2" class="radio_input1">
                 <div class="radio_radio1"></div>
                 Microphone
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Microphone" id="microphone_input" disabled>
+                </div>   
               </label>
   
               <label for="myRadioId_3" class="radio2">
                 <input type="checkbox" name="myRadioField" id="myRadioId_3" class="radio_input1">
                 <div class="radio_radio1"></div>
                 LCD Projector
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Lcd Projector" id="lcd-projector_input" disabled>
+                </div>    
+
               </label>
   
               <label for="myRadioId_4" class="radio2">
                 <input type="checkbox" name="myRadioField" id="myRadioId_4" class="radio_input1">
                 <div class="radio_radio1"></div>
                 Widescreen
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Sound System" id="wide-screen_input" disabled>
+                </div> 
               </label>
             </div>
 
-                        <div class="fields5">
+            <div class="fields5">
               <p class="text1">Bag</p>
               <label for="myRadioId-1" class="radio3">
                 <input type="checkbox" name="myRadioField" id="myRadioId-1" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Chair/s
+
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Chair/s" id="chair_input" disabled>
+                </div>    
+          
               </label>
   
               <label for="myRadioId-2" class="radio3">
                 <input type="checkbox" name="myRadioField" id="myRadioId-2" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Table/s
+
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Table/s" id="table_input" disabled>
+                </div>    
               </label>
   
               <label for="myRadioId-3" class="radio3">
                 <input type="checkbox" name="myRadioField" id="myRadioId-3" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Black Panel
+
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Black Panel" id="black-panel_input" disabled>
+                </div>  
               </label>
   
               <label for="myRadioId-4" class="radio3">
                 <input type="checkbox" name="myRadioField" id="myRadioId-4" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Whiteboard
+
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Whiteboard" id="whiteboard_input" disabled>
+                </div>  
               </label>
 
               <div class="aircon">
@@ -218,9 +249,6 @@
                 
                   <input type="text" placeholder="Other/s" id="otherInput" disabled>
                 </div>
-                
-
-
         </div>
         </div>
         </div>
@@ -250,7 +278,8 @@
                 </label>
               </div>
               
-              <button type="button" id="btnText" onclick="handleClick()">Html to PDF</button>
+              <button type="submit" id="btnText">Testing Button
+              </button>
             </div>
   
             </div>
@@ -258,38 +287,58 @@
       </form>
 </body>
 
-<script>
+<script src="js/rasajs.js"></script>  
+</html>
 
-function handleClick() {
-  window.location.href = "/pdfrasa"
-}
-    const storedData = localStorage.getItem('myData');
-    const data = JSON.parse(storedData);
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Testing</title>
 
-    const fullNameInput = document.getElementById("full_name");
-    fullNameInput.value = data.full_name;
+</head>
+<body>
+  <form id="myForm" method="POST" action="/submitrasa">
+    <label for="full_name">Full Name:</label>
+    <input type="text" id="full_name" name="full_name" value="">
 
-    const eventNameInput = document.getElementById("event_name");
-    eventNameInput.value = data.event_name;
+    <label for="event_name">Event Name:</label>
+    <input type="text" id="event_name" name="event_name" value="">
 
-    const eventDescriptionValue = document.getElementById("event_description");
-    eventDescriptionValue.value = data.event_description;
+    <label for="event_description">Event Description:</label>
+    <input type="text" id="event_description" name="event_description" value="">
 
-    const eventDayValue = document.getElementById("event_day");
-    eventDayValue.value = data.event_day;
+    <label for="event_day">Event Day:</label>
+    <input type="text" id="event_day" name="event_day" value="">
 
-    const startTimeValue = document.getElementById("start_time");
-    startTimeValue.value = data.start_time;
+    <label for="start_time">Start Time:</label>
+    <input type="text" id="start_time" name="start_time" value="">
 
-    const endTimeValue = document.getElementById("end_time");
-    endTimeValue.value = data.end_time;
-    // Use the data as needed
+    <label for="end_time">End Time:</label>
+    <input type="text" id="end_time" name="end_time" value="">
     
-    console.log(data.full_name);
-    console.log(data.event_name);
-    console.log(data.event_description);
-    console.log(data.event_day);
-    console.log(data.start_time);
-    console.log(data.end_time);
-</script>
+    <button type="submit" id="submit">Submit</button>
+  </form>
+  <script>
+    const form = document.getElementById("myForm");
+    const submitBtn = document.getElementById("submit");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const data = {
+        full_name: document.getElementById("full_name").value,
+        event_name: document.getElementById("event_name").value,
+        event_description: document.getElementById("event_description").value,
+        event_day: document.getElementById("event_day").value,
+        start_time: document.getElementById("start_time").value,
+        end_time: document.getElementById("end_time").value,
+      };
+
+      localStorage.setItem("myData", JSON.stringify(data));
+      window.location.href = "/submitrasa";
+    });
+  </script>
+</body>
 </html>

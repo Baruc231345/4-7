@@ -1,12 +1,35 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs');
+const db1 = require("../routes/rasa-db");
 
-(async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  const url = "https://www.amazon.com/"
-  await page.goto(url, {waitUntil: "load"});
-  const pdfBuffer = await page.pdf();
-  fs.writeFileSync('example.pdf', pdfBuffer);
-  await browser.close();
-})();
+const rasatesting = async(req , res) =>{
+    const {full_name, event_name, event_description, event_day, start_time, end_time } = req.body
+        console.log(full_name)
+        console.log(event_name)
+        console.log(event_description)
+        console.log(event_day)
+        console.log(start_time)
+        console.log(end_time)
+        db1.query('INSERT INTO inputted_table SET ?', {
+            full_name: full_name,
+            event_name: event_name,
+            event_description: event_description,
+            event_day: event_day,
+            start_time: start_time,
+            end_time: end_time
+          }, (error, results) => {
+            if (error) {
+              console.error(error);
+              // Handle the error appropriately
+            } else {
+              console.log(results + "rasa.js"); // Check the entire results object
+              const insertedId = results.insertId; // Retrieve the generated ID
+              console.log(insertedId); // Verify the generated ID
+              return res.json({
+                status: "success",
+                id: insertedId,
+                success: "Date Already Successfully Inputted"
+              });
+            }
+          });
+    }
+
+module.exports = rasatesting;

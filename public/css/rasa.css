@@ -394,6 +394,7 @@ form .backBtn2 i{
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .radio-buttons label {
@@ -456,3 +457,7 @@ form .backBtn2 i{
 .input-other {
 margin-left: 10px;
 }
+
+.input-wide {
+    margin-left: 10px; /* Adjust the desired amount of top margin */
+  }

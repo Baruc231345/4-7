@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
   
+
 //////////////////-------------------------------------
 const start_date1 = document.getElementById("start_date");
 const end_date1 = document.getElementById("end_date");
@@ -30,6 +31,8 @@ const event_day1 = document.getElementById("event_day");
 const start_time1 = document.getElementById("start_time");
 const end_time1 = document.getElementById("end_time");
 const event_description1 = document.getElementById("event_description");
+
+/*
 
 form.addEventListener("submit", () => {
   const start_time = start_time1.value;
@@ -59,32 +62,9 @@ form.addEventListener("submit", () => {
   // Redirect to another page
   window.location.href = "/submitRasa";
 });
-
-/*
-const form = document.getElementById("myForm");
-const submitBtn = document.getElementById("submit");
-
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const data = {
-    full_name: document.getElementById("full_name").value,
-    event_name: document.getElementById("event_name").value,
-    event_description: document.getElementById("event_description").value,
-    event_day: document.getElementById("event_day").value,
-    start_time: document.getElementById("start_time").value,
-    end_time: document.getElementById("end_time").value,
-  };
-
-  localStorage.setItem("myData", JSON.stringify(data));
-  window.location.href = "/submitrasa";
-});
-</script>
 */
 
-
-
-/*form.addEventListener("submit", () => {
+form.addEventListener("submit", () => {
   var startTime = document.getElementById("start_time").value;
   var endTime = document.getElementById("end_time").value;
   if (endTime < startTime) {
@@ -96,9 +76,9 @@ form.addEventListener("submit", (event) => {
       event_description: event_description1.value,
       event_day: event_day1.value,
       start_time: startTime,
-      end_time: endTime
+      end_time: endTime,
     };  
-    console.log(rasatesting)
+    console.log(rasatesting);
     fetch("/api/rasa", {
       method: "POST",
       body: JSON.stringify(rasatesting),
@@ -106,15 +86,18 @@ form.addEventListener("submit", (event) => {
         "Content-type": "application/json"
       }   
     })
-    const fullName = document.getElementById("full_name").value;
-    document.getElementById("fullNameDisplay").innerHTML = fullName;
+    .then(response => response.json())
+    .then(data => {
+      // Assuming the response data contains the generated id
+      const id = data.id;
+      window.location.href = `/ejsrasa/${data.id}`;
+    })
+    .catch(error => {
+      console.error(error);
+      // Handle error here
+    });
   }
-  window.location.href = "/submitrasa"
-})
-
-*/
-
-
+});
 
 const checkbox = document.getElementById('myRadioId-6');
 const startTimeInput = document.getElementById('start-time');

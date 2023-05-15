@@ -216,7 +216,18 @@ router.get('/pdf/:id', async (req, res) => {
     const pdfBuffer = await page.pdf();
     fs.writeFileSync(`rasa_${rasaID}.pdf`, pdfBuffer);
     await browser.close();
-    res.download(`rasa_${rasaID}.pdf`);
+
+    const pdfFileName = `rasa_${rasaID}.pdf`;
+    const sql = "UPDATE rasa_database.inputted_table SET pdf = ? WHERE id = ?";
+    db.query(sql, [pdfFileName, rasaID], function(error, result){
+      if (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while updating the table');
+      } else {
+        console.log(`PDF generated and saved for rasaID ${rasaID}`);
+        res.download(pdfFileName);
+      }
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred while generating PDF');
@@ -229,10 +240,8 @@ router.get('/open-pdf/:id', (req, res) => {
   open(`rasa_${rasaID}.pdf`);
 });
 
-
-
 router.put('/approve/:id', (req, res) => {
-  console.log("redritect")
+  console.log("redirect");
   const userId = req.params.id;
 
   db.query(
