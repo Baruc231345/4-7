@@ -117,6 +117,19 @@ router.get("/userview",loggedIn, dashboardAccessMiddleware, (req, res) => {
     })
 })
 
+router.get("/rasaview", (req, res) => {
+  var query = "SELECT * FROM rasa_database.inputted_table ORDER BY id";
+  db.query(query, function(error, data){
+      if (error){
+          throw error
+      }
+      else{
+          res.render('rasa_view', {title: 'Node.js MySQL CRUD Application', action:'list', sampleData: data})
+      }
+  })
+})
+
+
 router.get("/calendar", loggedIn, dashboardAccessMiddleware,(req , res) => {
     res.sendFile("calendar.html", {root: "./public/"});
 })
@@ -134,6 +147,80 @@ router.get("/submitrasa", (req , res) => {
   const data = JSON.parse(storedData);
   res.render("submitrasa", data);
 });
+
+router.get("/verification1", async(req, res)=>{
+  const nodemailer = require('nodemailer');
+  const html = `
+  <h1>This is content</h1>
+  <a href="http://localhost:3005/accesorRegular&status=approved" style="background-color: green; color: white; padding: 10px; text-decoration: none;">Approve</a>
+`;
+  async function main(){
+    const transporter = nodemailer.createTransport({
+      service: "hotmail",
+      auth: {
+        user: 'chat@outlook.com',
+        pass: 'cha!'
+      }
+    });
+
+    const info = await transporter.sendMail({
+      from: 'Me Brrt Haha <chat@outlook.com>',
+      to: 'kaqkyfltfsxdamwmdo@bbitj.com',
+      subject: 'Testing, testing 123',
+      html:html, 
+    })
+
+    console.log("Message Sent: " + info.messageId);
+  }
+  main()
+  .catch(e => console.log(e));
+});
+
+router.get("/verification", async (req, res) => {
+  const nodemailer = require('nodemailer');
+  const html = `
+  <h1>Number 3 Test</h1>
+  <a href="http://localhost:3005/accesorRegular&status=approved" style="background-color: green; color: white; padding: 10px; text-decoration: none;">Approve</a>
+`;
+  const path = require('path');
+  const fs = require('fs');
+
+  async function main() {
+    // Generate the PDF and save it to a file
+    const pdfPath = path.join(__dirname, 'rasa_327.pdf');
+    // Generate the PDF using your preferred method and save it to the 'pdfPath' location
+
+    const transporter = nodemailer.createTransport({
+      service: "hotmail",
+      auth: {
+        user: 'processtest1@outlook.com',
+        pass: 'Capstone1!'
+      }
+    });
+
+    const info = await transporter.sendMail({
+      from: 'Me Test Haha <processtest1@outlook.com>',
+      to: 'leynessherwin@gmail.com',
+      subject: 'Testing, testing 123',
+      html: html,
+      attachments: [
+        {
+          filename: 'generated.pdf',
+          path: pdfPath,
+        }
+      ]
+    });
+
+    console.log("Message Sent: " + info.messageId);
+    console.log(html);
+    // Delete the generated PDF file after sending the email
+    //fs.unlinkSync(pdfPath);
+  }
+
+  main()
+    .catch(e => console.log(e));
+});
+
 
 router.get("/pdfrasa", async (req, res) => {
   const puppeteer = require('puppeteer');
@@ -261,6 +348,10 @@ router.put('/approve/:id', (req, res) => {
     }
   );
 });
+
+router.get("/rasa_view",(req , res) => {
+  res.sendFile("rasa_view.html", {root: "./public/"});
+})
 
 
 

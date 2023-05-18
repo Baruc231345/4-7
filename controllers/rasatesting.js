@@ -14,7 +14,8 @@ const rasatesting = async(req , res) =>{
             event_description: event_description,
             event_day: event_day,
             start_time: start_time,
-            end_time: end_time
+            end_time: end_time,
+            rasa_status: "Pending"
           }, (error, results) => {
             if (error) {
               console.error(error);

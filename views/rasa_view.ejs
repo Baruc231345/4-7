@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/rasa_view.css">
+    <title>Rasa View</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Title: Rasa View</h2>
+        <table id="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Event Day</th>
+                    <th>Event Description</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>PDF</th>
+                    <th>Rasa Status</th>
+                </tr>
+                <% if(sampleData.length > 0) {
+                    sampleData.forEach(function(data) {
+                        const eventDay = new Date(data.event_day).toLocaleDateString();
+                        const startTime = new Date(data.start_time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+                        const endTime = new Date(data.end_time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+                        const startTimeFormatted = startTime.replace(/(\d{1,2}:\d{2})(:\d{2})/, "$1 $2");
+                        const endTimeFormatted = endTime.replace(/(\d{1,2}:\d{2})(:\d{2})/, "$1 $2");
+                %>
+                <tr>
+                    <td><%=data.id %></td>
+                    <td><%=data.full_name %></td>
+                    <td><%=eventDay %></td>
+                    <td><%=data.event_description %></td>
+                    <td><%=data.start_time %></td>
+                    <td><%=data.end_time %></td>
+                    <td><%=data.pdf %></td>
+                    <td><%=data.rasa_status %></td>
+                    
+                    <td> 
+                      <% if (data.pending === 1) { %>
+                        <a href="#" class="btn btn-sm btn-primary" onclick="approveUser(<%=data.id %>)">Disable</a>
+                      <% } else { %>
+                        <a href="approve/<%=data.id %>" class="btn btn-sm btn-primary"> Approved</a> 
+                      <% } %>
+                      <a href="editUserView/<%=data.id %>" class="btn btn-sm btn-primary"> Edit</a>
+                      <a href="delete/<%=data.id %>" class="btn btn-sm btn-primary"> Delete</a>
+                    </td>
+                </tr>
+                <%
+                    });
+                }
+                else
+                {
+                %>
+                <tr>
+                    <td colspan ="5"> No Data Found</td>
+                </tr>
+                <%
+                }
+                %>
+                
+            </thead>
+            </tbody>
+        </table>
+    </div>
+    <script src="./js/rasa_view.js"></script>
+</body>
+</html>
