@@ -16,6 +16,18 @@ app.get("/ejsrasa/css/rasa.css", (req, res) => {
     res.sendFile(__dirname + "/public/css/rasa.css");
   });
 
+app.use(bodyParser.urlencoded({extended:true}))
+app.get("/rasaview/css/rasa_view.css", (req, res) => {
+    res.sendFile(__dirname + "/public/css/rasa_view.css");
+  });
+
+app.use(bodyParser.urlencoded({extended:true}))
+app.get("/rasaview/css/rasa_view.js", (req, res) => {
+    res.sendFile(__dirname + "/public/js/rasa_view.js");
+  });
+  
+
+
 
   
 app.use("/js", express.static(__dirname + "/public/js"))
