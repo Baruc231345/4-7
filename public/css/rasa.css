@@ -14,15 +14,37 @@ body{
 .container{
     position: relative;
     max-width: 900px;
-    height: 2000px;
+    height: 1350px;
     width: 100%;
     margin-bottom: 15px ;
     border-radius: 6px;
     padding: 30px;
     margin: 0 15px;
-
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.container input{
+    width: 100%;
+    clear: both;
+}
+
+.fields2 .input-field:nth-child(1), .fields2 .input-field:nth-child(1), .fields2 .input-field:nth-child(4), 
+.fields2 .input-field:nth-child(3), .fields2 .input-field:nth-child(2), .fields1 .input-field:nth-child(1),
+.fields1 .input-field:nth-child(2){
+    width: 380px;
+}
+
+.fields2 .input-field:nth-last-child(3) input, .fields2 .input-field:nth-child(1) input{
+    width: 380px;
+}
+
+.fields2 .input-field:nth-last-child(3) label{
+    margin-right: 350px;
+  }
+
+.fields2 .input-field:nth-last-child(2), .fields2 .input-field:last-child {
+    width: 380px;
 }
 
 .container header{
@@ -58,7 +80,7 @@ body{
     /*margin-top: 10px; */
 }
 
-.container form .title{
+.container form .title , .title2{
     display: flex;
     margin-bottom: 8px;
     font-size: 30px;
@@ -67,15 +89,8 @@ body{
     color: #333;
 }
 
-.container form .title2{
-    display: flex;
-    margin-bottom: 8px;
-    font-size: 30px;
-    font-weight: 500;
-    margin: 6px 0;
-    color: #333;
-}
-.container form .fields1{
+
+.container form .fields1, .fields2{
     display: flex; 
     align-items: center;
     justify-content: space-between;
@@ -91,15 +106,6 @@ form .fields .input-field{
     margin: 4px 0;
 }
 
-.container form .fields2{
-    display: flex; 
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap ;
-    background-color: rgb(255, 255, 255);
-    padding: 10px;
-}
-
 .input-field label{
     font-size: 20px;
     font-weight:200 ;
@@ -112,7 +118,7 @@ form .fields .input-field{
     color: #000000;
 }
 
-.input-field input, select{
+.input-field input, .input-field1 input, select{
     outline: none;
     font-size: 14px;
     font-weight: 400;
@@ -124,17 +130,6 @@ form .fields .input-field{
     margin: 8px 0;
 }
 
-.input-field1 input, select{
-    outline: none;
-    font-size: 14px;
-    font-weight: 400;
-    color: #333;
-    border-radius: 5px;
-    border: 1px solid #aaa;
-    padding: 0 15px;
-    height: 42px;
-    margin: 8px 0;
-}
 
 form .fields2 .input-field1{
     display: flex;
@@ -190,51 +185,27 @@ form button:hover{
 .form{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: auto; /* Set height to auto */
   transition: all 0.3s ease-in-out;
   margin-top: 20px;
 }
 
-form.test .form.second{
+form.test .form.second, form.test1 .form.third{
     opacity: 1;
     pointer-events: auto;
 }
 
-form.test .form.third{
+form.test .form.third, form.test .form.first, form.test1 .form.first, form.test1 .form.second{
     opacity: 0;
     pointer-events: none;
 }
 
-form.test .form.first{
-    opacity: 0;
-    pointer-events: none;
-}
 
-form.test1 .form.first{
-    opacity: 0;
-    pointer-events: none;
-}
-
-form.test1 .form.second{
-    opacity: 0;
-    pointer-events: none;
-}
-
-form.test1 .form.third{
-    opacity: 1;
-    pointer-events: auto;
-}
-
-form.fields4{
+form.fields4, form.fields5{
     margin-top: 5px;
 }
 
-form.fields5{
-    margin-top: 5px;
-}
 form button i,
 form .backBtn i{
     margin: 0 6px;
@@ -250,11 +221,7 @@ form .buttons button, .backBtn{
     margin-right: 15px;
 }
 
-form .backBtn i{
-    transform: rotate(180deg);
-}
-
-form .backBtn2 i{
+form .backBtn i, form .backBtn2 i{
     transform: rotate(180deg);
 }
 
@@ -274,36 +241,15 @@ form .backBtn2 i{
     color: #000000;
 }
 
-.radio{
+.radio, .radio2, .radio3{
     display: inline-flex;
     align-items: center;
     cursor: pointer;
     margin-right: 10px;
 }
 
-.radio2{
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    margin-right: 10px;
-}
 
-.radio3{
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
-.radio_input{
-    display:none;
-}
-
-.radio_input2{
-    display:none;
-}
-
-.radio_input1{
+.radio_input, .radio_input2, .radio_input1{
     display:none;
 }
 
@@ -350,7 +296,7 @@ form .backBtn2 i{
     transition: transform 0.15s;
 }
 
-.radio_radio1::after{
+.radio_radio1::after, .radio_radio2::after{
     content:"";
     width: 100%;
     height: 100%;
@@ -361,33 +307,17 @@ form .backBtn2 i{
     transition: transform 0.15s;
 }
 
-.radio_radio2::after{
-    content:"";
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    display: flex;
-    background: rgb(0, 0, 0);
-    transform: scale(0);
-    transition: transform 0.15s;
-}
-
-.radio_input:checked + .radio_radio::after{
+.radio_input:checked + .radio_radio::after,.radio_input1:checked + .radio_radio1::after, .radio_input2:checked + .radio_radio2::after{
     transform: scale(1);
 }
-
-.radio_input1:checked + .radio_radio1::after{
-    transform: scale(1);
-}
-
-.radio_input2:checked + .radio_radio2::after{
-    transform: scale(1);
-}
-
 
 .fields3{
     flex-direction: column;
     margin-top: 10px;
+}
+
+.fields5 .input-other{
+    display: flex;
 }
 
 .radio-buttons {
@@ -440,24 +370,20 @@ form .backBtn2 i{
   font-size: 16px;
 }
 
-.aircon {
-    display: flex;
-    align-items: center;
-  }
-  
-  .input-aircon {
+.input-aircon {
     margin-left: 10px;
-  }
+}
 
-.other {
+.other , .aircon{
     display: flex;
     align-items: center;
 }
 
-.input-other {
-margin-left: 10px;
-}
 
-.input-wide {
+.input-wide, .input-other {
     margin-left: 10px; /* Adjust the desired amount of top margin */
   }
+
+#event_description{
+    width: 100%;
+}

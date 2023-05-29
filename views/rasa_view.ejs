@@ -19,7 +19,6 @@
                     <th>Event Description</th>
                     <th>Start Time</th>
                     <th>End Time</th>
-                    <th>PDF</th>
                     <th>Rasa Status</th>
                 </tr>
                 <% if(sampleData.length > 0) {
@@ -37,17 +36,16 @@
                     <td><%=data.event_description %></td>
                     <td><%=data.start_time %></td>
                     <td><%=data.end_time %></td>
-                    <td><%=data.pdf %></td>
                     <td><%=data.rasa_status %></td>
                     
                     <td> 
-                        <% if (data.pending === 1) { %>
-                            <a href="#" class="btn btn-sm btn-primary" onclick="approveUser(<%=data.id %>)">Disable</a>
-                          <% } else { %>
-                            <a href="/pdf/<%=data.id %>" class="btn btn-sm btn-primary">Approved</a> 
-                          <% } %>
-                          <a href="" class="btn btn-sm btn-primary">Download PDF</a>
-                          <a href="" class="btn btn-sm btn-primary">Disregard RASA</a>
+                            <% if (data.pending === 1) { %>
+                              <button class="btn btn-sm btn-primary" onclick="approveUser(<%=data.id %>)">Disable</button>
+                            <% } else { %>
+                              <button class="btn btn-sm btn-primary" onclick="window.location.href='/verification/<%=data.id%>'">Approved</button>
+                            <% } %>
+                            <button class="btn btn-sm btn-primary" onclick="window.location.href='/pdf/<%=data.id%>'">Download PDF</button>
+                            <button class="btn btn-sm btn-primary" onclick="window.location.href='/delete_rasa_request/<%=data.id%>'">Disregard RASA</button>
                       
                     </td>
                 </tr>

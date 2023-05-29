@@ -1,4 +1,4 @@
-const db = require("../routes/db-config");
+/*const db = require("../routes/db-config");
 const bcrypt = require("bcryptjs");
 const register = async(req , res) =>{
     const {email , password, role, pending} = req.body
@@ -19,8 +19,8 @@ const register = async(req , res) =>{
     }
 }
 module.exports = register;
+*/
 
-/*
 const db = require("../routes/db-config");
 const bcrypt = require("bcryptjs");
 
@@ -44,5 +44,5 @@ const register = async(req , res) =>{
         })
     }
 }
-*/
+
 module.exports = register;

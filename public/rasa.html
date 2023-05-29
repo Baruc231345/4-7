@@ -13,7 +13,7 @@
 <body>
   <div class="container">
     <header>Rasa Form</header>
-      <form onsubmit="return false;" id="form">
+      <form name="myForm" onsubmit="return false;" id="form">
       <div class="form first">
         <div class="details personal">
           <span class="title">Personal Details</span>
@@ -21,15 +21,13 @@
           <div class="fields1">
             <div class="input-field">
               <label>Full Name</label>
-              <input type="text" id="full_name"placeholder="Enter your name" >
+              <input type="text" id="full_name" placeholder="Enter your name" >
             </div>
 
             <div class="input-field">
               <label>Contact Number </label>
-              <input type="text" placeholder="Enter your mobile number" >
+              <input type="text" id="contact" placeholder="Enter your mobile number" >
             </div>
-
-
 
           </div>
           </div>
@@ -41,43 +39,50 @@
           <div class="fields2">
             <div class="input-field">
               <label>Event Name</label>
-              <input type="text" id= "event_name" placeholder="Enter Event Name" >
+              <input type="text" id="event_name" placeholder="Enter Event Name" >
             </div>
 
             <div class="input-field">
-              <label>Event Date/Day</label>
-              <input type="date" id= "event_day" placeholder="Date" >
+              <label for="event_day">Event Date/Day</label>
+              <input type="date" id="event_day" placeholder="Date">
             </div>
-
+            
             <div class="input-field">
-              <label>Event Description</label>
-              <input type="text" id ="event_description" placeholder="Enter Description">
+              <label for="event_description">Event Description</label>
+              <div class="select-wrapper">
+                <select id="event_description">
+                  <option value="" disabled selected>Select Description</option>
+                  <option value="Seminar">Seminar</option>
+                  <option value="Show">Show</option>
+                  <option value="Meeting">Meeting</option>
+                  <option value="Etc">Etc</option>
+                </select>
+              </div>
             </div>
 
             <div class="input-field">
               <label>Expected Participants</label>
-              <input type="number" placeholder="# of Participants" >
+              <input type="number" id="participants" placeholder="# of Participants" >
             </div>
-
 
             <div class="input-field">
               <label>Purpose/Objective</label>
-              <input type="text" placeholder="Specify the purpose" >
+              <input type="text" id="objective"placeholder="Specify the purpose" >
             </div>
 
             <div class="input-field">
               <label>How many days do you require use of the facility?</label>
-              <input type="text" placeholder="Specify the days" >
+              <input type="text" id="facility"placeholder="Specify the days" >
             </div>
 
             <div class="input-field">
               <label>Start Time</label>
-              <input type="time" id = "start_time" placeholder="include set-up time or ingress" >
+              <input type="time" id = "start_time" placeholder="include set-up time or ingress">
             </div>
 
             <div class="input-field">
               <label>End Time</label>
-              <input type="time" id = "end_time" placeholder="include break-down time or egress" >
+              <input type="time" id = "end_time" placeholder="include break-down time or egress">
             </div>
             </div>  
 
@@ -85,53 +90,56 @@
           <span class="title">Facilities Needed</span>
           <p class="text">*please check all rooms/facilities you plan to use</p>
           <div class="fields3">
+            <div class="row1">
             <label for="myRadioId" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId" class="radio_input">
               <div class="radio_radio"></div>
-              Auditorium
+               Gymnasium
             </label>
 
             <label for="myRadioId1" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId1" class="radio_input">
               <div class="radio_radio"></div>
-              Food and Beverage Room
+              Kitchen Area
             </label>
 
             <label for="myRadioId2" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId2" class="radio_input">
               <div class="radio_radio"></div>
-              Main Lobby
+               Main Lobby
             </label>
 
             <label for="myRadioId3" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId3" class="radio_input">
               <div class="radio_radio"></div>
-              Dance Studio
+              Multi Purpose Hall
             </label>
-
+          </div>
+          <div class="row2">
             <label for="myRadioId4" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId4" class="radio_input">
               <div class="radio_radio"></div>
-              Multi Purpose Hall
+              Classrooms
             </label>
 
             <label for="myRadioId5" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId5" class="radio_input">
               <div class="radio_radio"></div>
-              Gymnasium
+              Dance Studio 
             </label>
 
             <label for="myRadioId6" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId6" class="radio_input">
               <div class="radio_radio"></div>
-              Classrooms
+              Auditorium 
             </label>
 
             <label for="myRadioId7" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId7" class="radio_input">
               <div class="radio_radio"></div>
-              Kitchen Area
+              Food and Beverage Room
             </label>
+          </div>
           </div>
 
           <div class="details personal">
@@ -181,10 +189,11 @@
 
             <div class="fields5">
               <p class="text1">Bag</p>
+              
               <label for="myRadioId-1" class="radio3">
                 <input type="checkbox" name="myRadioField" id="myRadioId-1" class="radio_input2">
                 <div class="radio_radio2"></div>
-                Chair/s
+                Chair/s &nbsp &nbsp &nbsp 
 
                 <div class="input-wide">
                   <input type="text" placeholder="Number of Chair/s" id="chair_input" disabled>
@@ -201,7 +210,7 @@
                   <input type="text" placeholder="Number of Table/s" id="table_input" disabled>
                 </div>    
               </label>
-  
+              <div class="row3">
               <label for="myRadioId-3" class="radio3">
                 <input type="checkbox" name="myRadioField" id="myRadioId-3" class="radio_input2">
                 <div class="radio_radio2"></div>
@@ -216,12 +225,12 @@
                 <input type="checkbox" name="myRadioField" id="myRadioId-4" class="radio_input2">
                 <div class="radio_radio2"></div>
                 Whiteboard
-
+             
                 <div class="input-wide">
                   <input type="text" placeholder="Number of Whiteboard" id="whiteboard_input" disabled>
                 </div>  
               </label>
-
+            </div>
               <div class="aircon">
                 <label for="myRadioId-6" class="radio3">
                   <input type="checkbox" name="myRadioField" id="myRadioId-6" class="radio_input2">
@@ -254,31 +263,8 @@
         </div>
 
         <div class="form third">
-          <p class="text1">Important Notice:
-
-            <br>- No facility is reserved without a proper request form being submitted. Facilities and other resources shall be used for school related activities only.</br>
-            <br>- The requestor secures a Form from the OSA office at the ground floor. Form must be approved and submitted two (2) weeks before the intended use.</br>
-            <br>- The Requestor submits filled-out form to the adviser or person-in charge for endorsement approval. All activities must have a clear objective/s that aligns with the school's policy.</br>
-            <br>- You can check the availability and seek approval to the following department (Rooms - Academic Secretary at the 6th Floor Faculty room, Venus and other resources - Building Admin at the 4th floor and for Technical support - MIS & IT department at the 3rd floor). The final approval will be the academic head and school administrator. </br>
-            <br> - Facility/Equipment's must return clean and damage-gree after the activity. The Requestor and Adviser/Heads shall be accountable for any loss/damage to the facilities and borrowed resources. </br>
-            <br>- All production materials used for the activity shall be removed and disposed properly. </br>
-            <br>- Once approved requestor must submit (------) of Request Form to the following offices: OSA, Building Admin, MIS & IT, and Security Officer (Lobby or Basement). </p>
-
-              <div class="radio-buttons">
-                <label>
-                  <input type="radio" name="notice-agree" value="agree">
-                  <span class="checkmark"></span>
-                  <span class="label-text">I agree to the notice</span>
-                </label>
-
-                <label>
-                  <input type="radio" name="notice-agree" value="disagree">
-                  <span class="checkmark"></span>
-                  <span class="label-text">I disagree to the notice</span>
-                </label>
-              </div>
-              
-              <button type="submit" id="btnText">Testing Button</button>
+      
+              <button onclick="validateForm()">Testing Button</button>
             </div>
   
             </div>
@@ -286,7 +272,178 @@
       </form>
 </body>
 
-<script src="js/rasajs.js"></script>  
+<script>  
+
+function validateForm() {
+
+  var a = document.forms["myForm"]["event_name"].value;
+  var b = document.forms["myForm"]["event_day"].value;
+  var c = document.forms["myForm"]["event_description"].value;
+  var d = document.forms["myForm"]["full_name"].value;
+  var e = document.forms["myForm"]["contact"].value;
+  var f = document.forms["myForm"]["participants"].value;
+  var g = document.forms["myForm"]["objective"].value;
+  var h = document.forms["myForm"]["facility"].value;
+  var i = document.forms["myForm"]["start_time"].value;
+  var j = document.forms["myForm"]["end_time"].value;
+
+  if ((a == null || a == "" ) || (b == null || b == "") || (c == null || c == "")  || 
+  (d == null || d == "") || (e == null || e == "") || (f == null || f == "") ||
+  (g == null || g == "" ) || (h == null || h == "") || (i == null || i == "") ||
+  (j == null || j == "")){
+    alert("Form must be filled out");
+    return false;
+  }
+  else displayNotice();
+}
+
+
+
+function displayNotice() {
+  var notice = "Important Notice:\n\n" +
+    "- No facility is reserved without a proper request form being submitted. Facilities and other resources shall be used for school related activities only.\n\n" +
+    "- The requestor secures a Form from the OSA office at the ground floor. Form must be approved and submitted two (2) weeks before the intended use.\n\n" +
+    "- The Requestor submits filled-out form to the adviser or person-in charge for endorsement approval. All activities must have a clear objective/s that aligns with the school's policy.\n\n" +
+    "- You can check the availability and seek approval to the following department (Rooms - Academic Secretary at the 6th Floor Faculty room, Venus and other resources - Building Admin at the 4th floor and for Technical support - MIS & IT department at the 3rd floor). The final approval will be the academic head and school administrator.\n\n" +
+    "- Facility/Equipment's must return clean and damage-free after the activity. The Requestor and Adviser/Heads shall be accountable for any loss/damage to the facilities and borrowed resources.\n\n" +
+    "- All production materials used for the activity shall be removed and disposed properly.\n\n" +
+    "- Once approved, the requestor must submit (------) of Request Form to the following offices: OSA, Building Admin, MIS & IT, and Security Officer (Lobby or Basement).";
+
+    var agree = confirm(notice + "\n\nDo you agree to the notice?");
+
+if (agree) {
+  alert("You agreed to the notice.");
+  const form = document.querySelector("form"),
+        nextBtn = form.querySelector(".nextBtn"),
+        nextBtn2 = form.querySelector(".nextBtn2"),
+        backBtn = form.querySelector(".backBtn"),
+        nextBtn3 = form.querySelector(".nextBtn3"),
+        backBtn2 = form.querySelector(".backBtn2"),
+        allInput = form.querySelectorAll(".first input");
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const positionLabel = document.querySelector('#position label').textContent;
+  const inputFieldValues = Array.from(document.querySelectorAll('.input-field2 input')).map(input => input.value);
+  const myButton = document.querySelector('#noneBtn');
+
+  myButton.addEventListener('click', myFunction);
+
+  function myFunction() {
+    console.log(`Position Label: ${positionLabel}`);
+    console.log(`Input Field Values: ${inputFieldValues}`);
+  }
+});
+  
+
+//////////////////-------------------------------------
+const start_date1 = document.getElementById("start_date");
+const end_date1 = document.getElementById("end_date");
+
+const full_name1 = document.getElementById("full_name");
+const event_name1 = document.getElementById("event_name");
+const event_day1 = document.getElementById("event_day");
+const start_time1 = document.getElementById("start_time");
+const end_time1 = document.getElementById("end_time");
+const event_description1 = document.getElementById("event_description");
+
+/*
+
+form.addEventListener("submit", () => {
+  const start_time = start_time1.value;
+  const end_time = end_time1.value;
+  const full_name = full_name1.value;
+  const event_name= event_name1.value
+  const event_description = event_description1.value;
+  const event_day = event_day1.value;
+
+  // Create an object to store the start and end times
+  const data = {
+    start_time: start_time,
+    end_time: end_time,
+    full_name: full_name,
+    event_name: event_name,
+    event_description: event_description,
+    event_day: event_day
+
+  };
+
+  // Serialize the data object to a JSON string
+  const data_serialized = JSON.stringify(data);
+
+  // Store the serialized data in localStorage
+  localStorage.setItem('myData', data_serialized);
+
+  // Redirect to another page
+  window.location.href = "/submitRasa";
+});
+*/
+
+form.addEventListener("submit", () => {
+  var startTime = document.getElementById("start_time").value;
+  var endTime = document.getElementById("end_time").value;
+  if (endTime < startTime) {
+    alert("End time cannot be earlier than start time");
+  } else {    
+    const rasatesting = {
+      full_name: full_name1.value,
+      event_name: event_name1.value,
+      event_description: event_description1.value,
+      event_day: event_day1.value,
+      start_time: startTime,
+      end_time: endTime,
+    };  
+    fetch("/api/rasatesting", {
+      method: "POST",
+      body: JSON.stringify(rasatesting),
+      headers: {
+        "Content-type": "application/json"
+      }   
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Assuming the response data contains the generated id
+      const id = data.id;
+      window.location.href = `/ejsrasa/${data.id}`;
+    })
+    .catch(error => {
+      console.error(error);
+      // Handle error here
+    });
+  }
+});
+
+const checkbox = document.getElementById('myRadioId-6');
+const startTimeInput = document.getElementById('start-time');
+const endTimeInput = document.getElementById('end-time');
+
+checkbox.addEventListener('change', function() {  
+  if (this.checked) {
+    startTimeInput.disabled = false;
+    endTimeInput.disabled = false;
+  } else {
+    startTimeInput.disabled = true;
+    endTimeInput.disabled = true;
+  }
+});
+
+checkbox.addEventListener('change', function() {
+  if (!this.checked) {
+    startTimeInput.value = '';
+    endTimeInput.value = '';
+  }
+});
+
+function toggleOtherInput(checkbox) {
+  var otherInput = document.getElementById("otherInput");
+  otherInput.disabled = !checkbox.checked;
+}
+
+} else {
+  alert("You disagreed to the notice.");
+}
+}
+  </script>  
 </html>
 
 <!--<!DOCTYPE html>

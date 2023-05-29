@@ -17,6 +17,12 @@ app.get("/ejsrasa/css/rasa.css", (req, res) => {
   });
 
 app.use(bodyParser.urlencoded({extended:true}))
+app.get("/ejsrasa_copy/css/rasa.css", (req, res) => {
+    res.sendFile(__dirname + "/public/css/rasa.css");
+  });
+
+
+app.use(bodyParser.urlencoded({extended:true}))
 app.get("/rasaview/css/rasa_view.css", (req, res) => {
     res.sendFile(__dirname + "/public/css/rasa_view.css");
   });
