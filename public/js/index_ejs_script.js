@@ -29,6 +29,7 @@ registerBtn.addEventListener("click", function(event) {
                 }  
                 else {
                     window.location.href = '/dashboardRegular';
+                    //window.location.href = `/dashboardRegular/${data.id}`;
                     success.style.display = 'block';
                     success.innerText = data.success
                 }

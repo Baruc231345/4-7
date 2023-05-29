@@ -8,7 +8,7 @@ const rasatesting = async(req , res) =>{
         console.log(event_day)
         console.log(start_time)
         console.log(end_time)
-        db1.query('INSERT INTO inputted_table SET ?', {
+        db1.query('INSERT INTO temporary_inputted_table SET ?', {
             full_name: full_name,
             event_name: event_name,
             event_description: event_description,
@@ -21,7 +21,7 @@ const rasatesting = async(req , res) =>{
               console.error(error);
               // Handle the error appropriately
             } else {
-              console.log(results + "rasatesting.js"); // Check the entire results object
+              console.log(results + "TEMPORARY TEMPORARY TEMPORARY TEMPORARY.js"); // Check the entire results object
               const insertedId = results.insertId; // Retrieve the generated ID
               console.log(insertedId); // Verify the generated ID
               return res.json({

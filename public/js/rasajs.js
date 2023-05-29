@@ -78,8 +78,7 @@ form.addEventListener("submit", () => {
       start_time: startTime,
       end_time: endTime,
     };  
-    console.log(rasatesting);
-    fetch("/api/rasa", {
+    fetch("/api/rasatesting", {
       method: "POST",
       body: JSON.stringify(rasatesting),
       headers: {
@@ -103,7 +102,7 @@ const checkbox = document.getElementById('myRadioId-6');
 const startTimeInput = document.getElementById('start-time');
 const endTimeInput = document.getElementById('end-time');
 
-checkbox.addEventListener('change', function() {
+checkbox.addEventListener('change', function() {  
   if (this.checked) {
     startTimeInput.disabled = false;
     endTimeInput.disabled = false;

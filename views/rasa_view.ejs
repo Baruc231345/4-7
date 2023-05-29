@@ -41,13 +41,14 @@
                     <td><%=data.rasa_status %></td>
                     
                     <td> 
-                      <% if (data.pending === 1) { %>
-                        <a href="#" class="btn btn-sm btn-primary" onclick="approveUser(<%=data.id %>)">Disable</a>
-                      <% } else { %>
-                        <a href="approve/<%=data.id %>" class="btn btn-sm btn-primary"> Approved</a> 
-                      <% } %>
-                      <a href="editUserView/<%=data.id %>" class="btn btn-sm btn-primary"> Edit</a>
-                      <a href="delete/<%=data.id %>" class="btn btn-sm btn-primary"> Delete</a>
+                        <% if (data.pending === 1) { %>
+                            <a href="#" class="btn btn-sm btn-primary" onclick="approveUser(<%=data.id %>)">Disable</a>
+                          <% } else { %>
+                            <a href="/pdf/<%=data.id %>" class="btn btn-sm btn-primary">Approved</a> 
+                          <% } %>
+                          <a href="" class="btn btn-sm btn-primary">Download PDF</a>
+                          <a href="" class="btn btn-sm btn-primary">Disregard RASA</a>
+                      
                     </td>
                 </tr>
                 <%

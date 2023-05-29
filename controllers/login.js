@@ -3,20 +3,16 @@ const db = require("../routes/db-config");
 const bcrypt = require("bcryptjs");
 
 const login = async (req, res) => {
-  const { email, password,} = req.body;
+  const { email, password } = req.body;
   if (!email)
-    return res.json({ status: "error", error: "Please Enter your Email" });
+    return res.json({ status: "error", error: "Please enter your email" });
   else if (!password)
-    return res.json({ status: "error", error: "Please Enter your Password" });
+    return res.json({ status: "error", error: "Please enter your password" });
   else {
     db.query(
       "SELECT * FROM user WHERE email = ?",
       [email],
       async (err, result) => {
-
-        console.log("id:", result[0].id)
-        console.log("pending:", result[0].pending)
-
         if (err) throw err;
         if (
           !result.length ||
@@ -24,7 +20,7 @@ const login = async (req, res) => {
         ) {
           return res.json({
             status: "error",
-            error: "Incorrect Email or Password",
+            error: "Incorrect email or password",
           });
         } else if (result[0].pending === 0) {
           return res.json({
@@ -45,10 +41,12 @@ const login = async (req, res) => {
           return res.json({
             status: "success",
             success: "User has been logged in",
+            id: result[0].id // Include the id value in the response
           });
         }
       }
     );
   }
 };
+
 module.exports = login;

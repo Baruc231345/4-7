@@ -25,9 +25,15 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.get("/rasaview/css/rasa_view.js", (req, res) => {
     res.sendFile(__dirname + "/public/js/rasa_view.js");
   });
-  
 
 
+app.get("/dashboardRegular/css/dashboard1.css", (req, res) => {
+  res.sendFile(__dirname + "/public/css/dashboard1.css");
+  });
+
+app.get("/dashboardRegular/js/dashboard1.js", (req, res) => {
+  res.sendFile(__dirname + "/public/js/dashboard1.js");
+  });
 
   
 app.use("/js", express.static(__dirname + "/public/js"))

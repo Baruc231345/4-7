@@ -1,4 +1,5 @@
 const db1 = require("../routes/rasa-db");
+const db = require("../routes/sql_login");
 
 const getInputtedData = (req, res) => {
   db1.query("SELECT * FROM inputted_table", (error, results) => {
