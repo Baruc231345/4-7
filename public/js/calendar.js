@@ -20,6 +20,28 @@ const events = [
         description: "Celebrate Jane's birthday"  
     },
 ];
+const addEventBtn = document.getElementById('add-event-btn');
+addEventBtn.addEventListener('click', () => {
+  const title = prompt('Enter event title:');
+  const description = prompt('Enter event description:');
+  const dateStr = prompt('Enter event date (YYYY-MM-DD):');
+  const [year, month, day] = dateStr.split('-');
+
+  if (title && description && year && month && day) { 
+    const date = new Date(year, month - 1, day); // Month is zero-based
+    const event = {
+      date,
+      title,
+      description
+    };
+
+    events.push(event);
+    addEventsToCalendar(events);
+    displayCalendarDates(currentMonth, currentYear); // Add this line
+  } else {
+    alert('Invalid input. Please try again.');
+  }
+});
 
 function getCalendarDates(month, year) {
   const dates = [];
@@ -55,29 +77,30 @@ function getCalendarDates(month, year) {
 }
 
 function displayCalendarDates(month, year) {
-    const dates = getCalendarDates(month, year);
-    const monthName = new Date(year, month, 1).toLocaleString('default', { month: 'long' });
-    document.getElementById('month').textContent = monthName;
-  
-    const tbody = document.querySelector('tbody');
-    while (tbody.firstChild) {
-      tbody.removeChild(tbody.firstChild);
-    }
-    dates.forEach((week) => {
-      const tr = document.createElement('tr');
-      week.forEach((date) => {
-        const td = document.createElement('td');
-        if (date instanceof Date && date.getMonth() === month && date.getFullYear() === year) {
-          td.textContent = date.getDate();
-          if (date.toDateString() === new Date().toDateString()) {
-            td.classList.add('today');
-          }
+  const dates = getCalendarDates(month, year);
+  const monthName = new Date(year, month, 1).toLocaleString('default', { month: 'long' });
+  document.getElementById('month').textContent = monthName;
+
+  const tbody = document.querySelector('tbody');
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
+  }
+  dates.forEach((week) => {
+    const tr = document.createElement('tr');
+    week.forEach((date) => {
+      const td = document.createElement('td');
+      if (date instanceof Date && date.getMonth() === month && date.getFullYear() === year) {
+        td.textContent = date.getDate();
+        td.classList.add('calendar-date'); // Add the "calendar-date" class to date cells
+        if (date.toDateString() === new Date().toDateString()) {
+          td.classList.add('today');
         }
-        tr.appendChild(td);
-      });
-      tbody.appendChild(tr);
+      }
+      tr.appendChild(td);
     });
-    addEventsToCalendar(events);
+    tbody.appendChild(tr);
+  });
+  addEventsToCalendar(events);
 
       // Add click event listener to date cells
   const dateCells = document.querySelectorAll('.calendar-date');
@@ -118,8 +141,15 @@ nextBtn.addEventListener('click', () => {
   displayCalendarDates(currentMonth, currentYear);
 });
 
-function addEventsToCalendar(events) {
-  const tableCells = document.querySelectorAll("#calendar tbody td");
+EventsToCalendar(events) {
+  const tableCells = document.querySelectorAll(".calendar-date");
+
+  // Clear existing events
+  tableCells.forEach((cell) => {
+    while (cell.firstChild) {
+      cell.removeChild(cell.firstChild);
+    }
+  });
 
   events.forEach((event) => {
     const startDate = event.date;
@@ -129,12 +159,12 @@ function addEventsToCalendar(events) {
 
     let currentDay = startDate;
     while (currentDay <= endDate) {
-      const date = currentDay.getDate();
+      const date = currentDay.getDfunction addate();
       const month = currentDay.getMonth();
       const year = currentDay.getFullYear();
 
       // Check if the event date matches the current month and year
-      if (month === currentMonth && year === currentYear) {
+      if (month === currentMonth && year === currentYear &&date === currentDay.getDate()) {
         // Find the table cell corresponding to the date of the event
         const cell = Array.from(tableCells).find((td) => {
           const tdDate = new Date(year, month, td.textContent);

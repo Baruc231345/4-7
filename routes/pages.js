@@ -5,10 +5,16 @@ const login = require("../controllers/login");
 const logout = require("../controllers/logout");
 const newreg = require("../controllers/newreg");
 const db = require("../routes/db-config");
-const db1 = require('mysql2/promise');
 const path = require('path');
 const fs = require('fs');
 const router = express.Router();
+const multer = require('multer');
+const db1 = require("../routes/rasa-db");
+
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage }).fields([{ name: 'form_sign' }]);
+
 router.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({extended: true}));
 
@@ -72,13 +78,8 @@ router.get("/editUserView", (req , res) => {
   res.sendFile("editUserView.html", {root: "./public"});
 })
 
-router.get("/rasa", (req , res) => {
-  const id = req.query.id;
-    res.sendFile("rasa.html", {root: "./public"});
-})
 
-router.get("/rasa/:id", (req , res) => {
-  const id = req.query.id;
+router.get("/rasa", (req , res) => {
     res.sendFile("rasa.html", {root: "./public"});
 })
 
@@ -128,12 +129,6 @@ router.get("/accesorAdmin",loggedIn, dashboardAccessMiddleware, (req , res) => {
 router.get("/accesorRegular",loggedIn, dashboardAccessMiddleware, (req , res) => {
   res.sendFile("accesor_regular.html", {root: "./public/"});
 })
-
-router.get("/submitrasa", (req , res) => {
-  const storedData = localStorage.getItem('myData');
-  const data = JSON.parse(storedData);
-  res.render("submitrasa", data);
-});
 
 router.get("/pdfrasa", async (req, res) => {
   const puppeteer = require('puppeteer');
@@ -226,6 +221,7 @@ router.get('/ejsrasa_copy/:id', (req,res) => {
 router.get('/pdf/:id', async (req, res) => {
   const puppeteer = require('puppeteer');
   const fs = require('fs');
+  const path = require('path');
   const rasaID = req.params.id;
   const url = `http://localhost:3005/ejsrasa_copy/${rasaID}`;
 
@@ -249,11 +245,14 @@ router.get('/pdf/:id', async (req, res) => {
 
       const pdfFileName = `rasa_${rasaID}.pdf`;
       const filePath = path.join('C:', 'Users', 'Mig', '4-7', 'pdf-folders', pdfFileName);
-      if (!fs.existsSync(filePath)) {
-        // Write the PDF file if it doesn't exist
-        fs.writeFileSync(filePath, pdfBuffer);
+
+      // Delete the existing PDF file if it exists
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
       }
 
+      // Write the new PDF file
+      fs.writeFileSync(filePath, pdfBuffer);
 
       const updateSql = 'UPDATE rasa_database.inputted_table SET pdf = ? WHERE id = ?';
       db.query(updateSql, [pdfFileName, rasaID], function (error, result) {
@@ -276,7 +275,6 @@ router.get("/delete_rasa_request/:id", async (req, res) => {
     const rasaID = req.params.id;
   
     try {
-      // Fetch the data to be removed from the inputted_table
       const selectSql = 'SELECT * FROM rasa_database.inputted_table WHERE id = ?';
       db.query(selectSql, [rasaID], function (error, result) {
         if (error) {
@@ -287,7 +285,6 @@ router.get("/delete_rasa_request/:id", async (req, res) => {
           return res.status(404).send('The provided ID does not exist in the inputted_table');
         }
         const data = result[0];
-        // Insert the data into the archieve_inputted_table
         const insertSql = 'INSERT INTO rasa_database.archieved_inputted_table (rasa_id, full_name, event_day, event_name, event_description, start_time, end_time, rasa_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
         db.query(
           insertSql,
@@ -297,8 +294,6 @@ router.get("/delete_rasa_request/:id", async (req, res) => {
               console.error(error);
               return res.status(500).send('An error occurred while transferring the data to the archieve_inputted_table');
             }
-  
-            // Remove the data from the inputted_table
             const deleteSql = 'DELETE FROM rasa_database.inputted_table WHERE id = ?';
             db.query(deleteSql, [rasaID], function (error, result) {
               if (error) {
@@ -386,8 +381,23 @@ router.get('/pdf1/:id', async (req, res) => {
 
 router.get('/open-pdf/:id', (req, res) => {
   const rasaID = req.params.id;
-  const { open } = require('open');
-  open(`rasa_${rasaID}.pdf`);
+  const { exec } = require('child_process');
+  const path = require('path');
+  const pdfFileName = `rasa_${rasaID}.pdf`;
+  const filePath = path.join('C:', 'Users', 'Mig', '4-7', 'pdf-folders', pdfFileName);
+
+  // Command to open the PDF file with the default PDF viewer
+  const command = process.platform === 'win32' ? `start ${filePath}` : `open ${filePath}`;
+
+  exec(command, (error) => {
+    if (error) {
+      console.error(error);
+      return res.status(500).send('An error occurred while opening the PDF');
+    }
+
+    console.log(`PDF successfully opened. RasaId = ${rasaID}`);
+    res.status(200).send('PDF opened successfully');
+  });
 });
 
 router.put('/approve/:id', (req, res) => {
@@ -444,7 +454,7 @@ router.get("/trash", async(req, res)=>{
   .catch(e => console.log(e));
 });
 
-/* 
+/*
 // Verification 1
 router.get("/verification/:id", async (req, res) => {  
   const id = req.params.id;
@@ -491,161 +501,104 @@ router.get("/verification/:id", async (req, res) => {
 
 */
 
-//This is verification 2 
 router.get("/verification/:id", async (req, res) => {
   const id = req.params.id;
   const nodemailer = require('nodemailer');
   const path = require('path');
   const fs = require('fs');
-  const email = "nekins213@gmail.com"
+  const email = "nekins213@gmail.com";
+  const pdfFileName = `rasa_${id}.pdf`;
+  const filePath = path.join('C:', 'Users', 'Mig', '4-7', 'pdf-folders', pdfFileName);
 
   const html = `
     <h1>Rasa for Approval Email</h1>
-    <a href="http://localhost:3005/firstSignature/:id" style="background-color: green; color: white; padding: 10px; text-decoration: none;">Approve</a>
+    <a href="http://localhost:3005/getSignature/${id}" style="background-color: green; color: white; padding: 10px; text-decoration: none;">Approve</a>
   `;
 
-  async function main() {
-    try {
-      const updateSql = 'UPDATE rasa_database.inputted_table SET rasa_status = ? WHERE id = ?';
-      db.query(updateSql, [`waiting for email of ${email}`, id], (error, result) => {
-        if (error) {
-          console.error(error);
-          return res.status(500).send('An error occurred while updating rasa_status and sending email');
-        }
-        console.log("rasa_status updated to " + "waiting for email of " + email + " for ID: " + id);
-        res.status(200).send('Email sent successfully and rasa_status updated');
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('An error occurred while updating rasa_status and sending email');
-    }
-
-    // Get the PDF file path based on the ID
-    const pdfFileName = `rasa_${id}.pdf`;
-    const filePath = path.join('C:', 'Users', 'Mig', '4-7', 'pdf-folders', pdfFileName);
-
-    // Check if the PDF file exists
-    if (!fs.existsSync(filePath)) {
-      console.log(`PDF file not found for ID: ${id}`);
-      return res.status(404).send('PDF file not found');
-    }
-
-    const transporter = nodemailer.createTransport({
-      service: 'hotmail',
-      auth: {
-        user: 'processtest1@outlook.com',
-        pass: 'Capstone1!'
-      }
-    });
-
-    transporter.sendMail({
-      from: 'Me Test Haha <processtest1@outlook.com>',
-      to: email,
-      subject: 'Testing, testing 123',
-      html: html,
-      attachments: [
-        {
-          filename: 'generated.pdf',
-          path: filePath,
-        }
-      ]
-    }, (error, info) => {
+  try {
+    const updateSql = 'UPDATE rasa_database.inputted_table SET rasa_status = ? WHERE id = ?';
+    db.query(updateSql, [`waiting for approval of ${email}`, id], (error, result) => {
       if (error) {
         console.error(error);
+        const updateErrorSql = 'UPDATE rasa_database.inputted_table SET rasa_status = ? WHERE id = ?';
+        db.query(updateErrorSql, [`Error 500: Sending Rasa to Email is Failed`, id], (error) => {
+          if (error) {
+            console.error(error);
+            return res.status(500).send('An error occurred while updating rasa_status');
+          }
+          return res.status(500).send('An error occurred while sending email. rasa_status updated to Error 500: Sending Rasa to Email is Failed');
+        });
       } else {
-        console.log("Message Sent: " + info.messageId);
-      }
-    });
-  }
-
-  main().catch(e => console.log(e));
-});
-
-router.get("/firstSignature/:id" , async (req, res)=>{
-  res.sendFile("rasa.html", {root: "./public/"});
-})
-/*
-// Verification 3
-router.get("/verification3/:id", async (req, res) => {
-  const id = req.params.id;
-  const nodemailer = require('nodemailer');
-  const path = require('path');
-  const fs = require('fs');
-
-  const html = `
-    <h1>Rasa for Approval Email</h1>
-    <a href="http://localhost:3005/rasaview" style="background-color: green; color: white; padding: 10px; text-decoration: none;">Approve</a>
-  `;
-
-  async function main() {
-    // Get the PDF file path based on the ID
-    const pdfFileName = `rasa_${id}.pdf`;
-    const filePath = path.join('C:', 'Users', 'Mig', '4-7', 'pdf-folders', pdfFileName);
-
-    // Check if the PDF file exists
-    if (!fs.existsSync(filePath)) {
-      console.log(`PDF file not found for ID: ${id}`);
-      return res.status(404).send('PDF file not found');
-    }
-
-    const transporter = nodemailer.createTransport({
-      service: 'hotmail',
-      auth: {
-        user: 'processtest1@outlook.com',
-        pass: 'Capstone1!'
-      }
-    });
-
-    const info = await transporter.sendMail({
-      from: 'Me Test Haha <processtest1@outlook.com>',
-      to: 'nekins213@gmail.com',
-      subject: 'Testing, testing 123',
-      html: html,
-      attachments: [
-        {
-          filename: 'generated.pdf',
-          path: filePath,
+        console.log("rasa_status updated to " + "waiting for email of " + email + " for ID: " + id);
+        if (!fs.existsSync(filePath)) {
+          console.log(`PDF file not found for ID: ${id}`);
+          return res.status(404).send('PDF file not found');
         }
-      ]
+
+        const transporter = nodemailer.createTransport({
+          service: 'hotmail',
+          auth: {
+            user: 'processtest1@outlook.com',
+            pass: 'Capstone1!'
+          }
+        });
+
+        transporter.sendMail({
+          from: 'Miguel Baruc <processtest1@outlook.com>',
+          to: email,
+          subject: 'First Signature:',
+          html: html,
+          attachments: [
+            {
+              filename: `Rasa_File_${id}.pdf`,
+              path: filePath,
+            }
+          ]
+        }, (error, info) => {
+          if (error) {
+            console.error(error);
+            return res.status(500).send('An error occurred while sending the email');
+          }
+          console.log("Message Sent: " + info.messageId);
+
+          setTimeout(() => {
+            res.redirect('/rasaview');
+          }, 5000); // Delay the redirection by 5 seconds
+        });
+      }
     });
-
-    console.log("Message Sent: " + info.messageId);
-    res.status(200).send('Email sent successfully');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while updating rasa_status and sending email');
   }
-
-  main().catch(e => console.log(e));
 });
-*/
-////////////////////////////////////////////////////////////////
 
-/*
-router.get("/verification/:id", async (req, res) => {
+router.get("/verification2/:id", async (req, res) => {
   const id = req.params.id;
   const nodemailer = require('nodemailer');
   const path = require('path');
   const fs = require('fs');
+  const email = "miguelbaruc12@gmail.com";
 
   const html = `
     <h1>Rasa for Approval Email</h1>
-    <a href="http://localhost:3005/rasaview" style="background-color: green; color: white; padding: 10px; text-decoration: none;">Approve</a>
+    <a href="http://localhost:3005/getSignature2/${id}" style="background-color: green; color: white; padding: 10px; text-decoration: none;">Approve</a>
   `;
 
-  async function updateRasaStatus() {
-    try {
-      // Update rasa_status column in inputted_table to "2"
-      const updateSql = 'UPDATE rasa_database.inputted_table SET rasa_status = ? WHERE id = ?';
-      await db.query(updateSql, ['2', id]);
-
-      console.log(`rasa_status updated to "2" for ID: ${id}`);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).send('An error occurred while updating rasa_status');
-    }
-  }
-
-  async function sendEmail() {
-    try {
-      // Get the PDF file path based on the ID
+  try {
+    const updateSql = 'UPDATE rasa_database.inputted_table SET rasa_status = ? WHERE id = ?';
+    db.query(updateSql, [`This is signature 2: Sending email to ${email}`, id], (error, result) => {
+      if (error) {
+        console.error(error);
+        const updateErrorSql = 'UPDATE rasa_database.inputted_table SET rasa_status = ? WHERE id = ?';
+        db.query(updateErrorSql, [`Signature 2 - Error 500: Sending Rasa to Email is Failed`, id], (error) => {
+          if (error) {
+            console.error(error);
+            return res.status(500).send('An error occurred while updating rasa_status');
+          } return res.status(500).send('An error occurred while sending email. rasa_status updated to Error 500: Sending Rasa to Email is Failed');
+        });
+      } else {
+      console.log("This is Signature 2: rasa_status updated to " + "waiting for email of " + email + " for ID: " + id);
       const pdfFileName = `rasa_${id}.pdf`;
       const filePath = path.join('C:', 'Users', 'Mig', '4-7', 'pdf-folders', pdfFileName);
 
@@ -655,7 +608,6 @@ router.get("/verification/:id", async (req, res) => {
         return res.status(404).send('PDF file not found');
       }
 
-      // Create a transporter for sending emails
       const transporter = nodemailer.createTransport({
         service: 'hotmail',
         auth: {
@@ -664,82 +616,105 @@ router.get("/verification/:id", async (req, res) => {
         }
       });
 
-      // Send the email with attachment
-      const info = await transporter.sendMail({
-        from: 'Me Test Haha <processtest1@outlook.com>',
-        to: 'nekins213@gmail.com',
-        subject: 'Rasa Approval',
+      transporter.sendMail({
+        from: 'Miguel Baruc: Second Signature <processtest1@outlook.com>',
+        to: email,
+        subject: 'Second Signature:',
         html: html,
         attachments: [
           {
-            filename: 'generated.pdf',
+            filename: `Rasa_File_${id}.pdf`,
             path: filePath,
           }
         ]
+      }, (error, info) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).send('An error occurred while sending the email');
+        }
+        console.log("Message Sent: " + info.messageId);
+        res.status(200).send('Email sent successfully and rasa_status updated');
+        res.redirect(`/getSignature2/${id}`);
       });
-
-      console.log("Email sent successfully. Verification. Message ID: " + info.messageId);
-
-      // Call the function to update rasa_status
-      await updateRasaStatus();
-
-      res.status(200).send('Email sent successfully and rasa_status updated');
-      //res.redirect(`/verification3/${id}`);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('An error occurred while sending the email');
     }
+      });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while updating rasa_status and sending email');
   }
-
-  sendEmail();
 });
 
+router.get("/insertSign" , async (req, res)=>{
+  res.sendFile("insertSign.html", {root: "./public/"});
+})
 
-router.get("/verification3/:id", async (req, res) => {
-  const id = req.params.id;
-  const nodemailer = require('nodemailer');
-  const path = require('path');
-  const fs = require('fs');
+router.get('/getSignature/:id', (req, res) => {
+  const rasaID = req.params.id;
+  console.log(rasaID);
+  const updateQuery = "UPDATE rasa_database.inputted_table SET form_sign = (SELECT form_sign FROM rasa_database.signature_table WHERE id = 7) WHERE id = ?";
 
-  const html = `
-    <h1>Rasa for Approval Email</h1>
-    <a href="http://localhost:3005/rasaview" style="background-color: green; color: white; padding: 10px; text-decoration: none;">Approve</a>
-  `;
+  db.query(updateQuery, [rasaID], function(error, result) {
+    if (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Error updating form_sign" });
+    } else {
+      console.log("form_sign updated successfully");
 
-  async function sendEmailAndUpdateStatus() {
-    try {
-      // Update rasa_status column in inputted_table to "2"
       const updateSql = 'UPDATE rasa_database.inputted_table SET rasa_status = ? WHERE id = ?';
-      await db.query(updateSql, ['2', id]);
-
-      console.log(`rasa_status updated to "2" for ID: ${id}`);
-
-      const transporter = nodemailer.createTransport({
-        service: 'hotmail',
-        auth: {
-          user: 'processtest1@outlook.com',
-          pass: 'Capstone1!'
+      db.query(updateSql, [`First Signature Approved: waiting for approval of miguelbaruc12@gmail.com`, rasaID], (error, result) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).send('An error occurred while updating rasa_status');
+        } else {
+          console.log("rasa_status updated to First Signature Approved: waiting for approval of miguelbaruc12@gmail.com");
+          const selectQuery = "SELECT * FROM rasa_database.inputted_table WHERE id = ?";
+          db.query(selectQuery, [rasaID], function(error, data) {
+            if (error) {
+              throw error;
+            } else {
+              if (data.length > 0) {
+                const inputted_table = data[0];
+                res.locals.rasaID = rasaID;
+                res.render("submitrasa", { inputted_table: inputted_table });
+              } else {
+                res.status(404).send("Rasa not found");
+              }
+            }
+          });
         }
       });
-
-      const info = await transporter.sendMail({
-        from: 'Me Test Haha <processtest1@outlook.com>',
-        to: 'miguelbaruc12@gmail.com',
-        subject: 'Rasa Update',
-        html: 'Your Rasa has been approved.'
-      });
-
-      console.log("Email sent to miguelbaruc12@gmail.com. Message Sent: " + info.messageId);
-      
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('An error occurred while updating rasa_status and sending email');
     }
-  }
-
-  sendEmailAndUpdateStatus();
+  });
 });
-*/
+
+router.get('/getSignature2/:id', (req, res) => {
+  const rasaID = req.params.id;
+  console.log(rasaID);
+  const updateQuery = "UPDATE rasa_database.inputted_table SET form_sign2 = (SELECT form_sign FROM rasa_database.signature_table WHERE id = 9) WHERE id = ?";
+
+  db.query(updateQuery, [rasaID], function(error, result) {
+    if (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Error updating form_sign" });
+    } else {
+      console.log("form_sign2 updated successfully");
+      const selectQuery = "SELECT * FROM rasa_database.inputted_table WHERE id = ?";
+      db.query(selectQuery, [rasaID], function(error, data) {
+        if (error) {
+          throw error;
+        } else {
+          if (data.length > 0) {
+            const inputted_table = data[0];
+            res.locals.rasaID = rasaID;
+            res.render("submitrasa", { inputted_table: inputted_table });
+          } else {
+            res.status(404).send("Rasa not found");
+          }
+        }
+      });
+    }
+  });
+});
 
 router.get("/logout", logout);
 router.get("/newreg", newreg);

@@ -1,89 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-      <title>Dashboard - Home - Sample</title>
-      <link rel="stylesheet" type="text/css" href="css/calendar.css">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard - Home - Sample</title>
+  <link rel="stylesheet" type="text/css" href="css/calendar.css">
+</head>
+<body>
+  <div id="calendar">
+    <div class="header">
+      <h1 id="month"></h1>
+    </div>
+    <div class="sub-head">
+      <button id="prev-btn">Prev</button>
+      <button id="next-btn">Next</button>
+      <button id="add-event-btn">Add Event</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Calendar dates will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
 
-    </head>
-    <body>
-    
-      <div id="calendar">
-    
-        <div class="header">
-          <h1 id="month"></h1>
-        </div>
-    
-        <div class="sub-head">
-        <button id="prev-btn">Prev</button>
-        <button id="next-btn">Next</button>
-      </div>
-    
-        <table>
-          <thead>
-            <tr>
-              <th>Sun</th>
-              <th>Mon</th>
-              <th>Tue</th>
-              <th>Wed</th>
-              <th>Thu</th>
-              <th>Fri</th>
-              <th>Sat</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <!-- Repeat rows for the number of weeks in a month -->
-          </tbody>
-        </table>
+  <script>
+    const events = [
+      {
+        date: new Date(2023, 4, 15),
+        title: "Meeting with John",
+        description: "Discuss new project proposal"
+      },
+      {
+        date: new Date(2023, 4, 16),
+        title: "Sherwin",
+        description: "Sherwin",
         
-      </div>
-      
-      <script src="js/calendar.js"></script>
-    </body>
-    </html>
+        date: new Date(2023, 4, 16),
+        title: "Test",
+        description: "Test"
+      },
+      {
+        date: new Date(2023, 4, 20),
+        title: "Birthday party",
+        description: "Celebrate Jane's birthday"
+      },
+    ];
+
+    const addEventBtn = document.getElementById('add-event-btn');
+    addEventBtn.addEventListener('click', () => {
+      const title = prompt('Enter event title:');
+      const description = prompt('Enter event description:');
+      const dateStr = prompt('Enter event date (YYYY-MM-DD):');
+      const [year, month, day] = dateStr.split('-');
+      const date = new Date(year, month - 1, day);
+      if (title && description && date instanceof Date && !isNaN(date.getTime())) {
+        events.push({ date, title, description });
+        addEventsToCalendar(events);
+      } else {
+        alert('Invalid event data. Please try again.');
+      }
+    });
+
+    const today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+    const monthYearHeader = document.getElementById("month");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    prevBtn.addEventListener("click", showPreviousMonth);
+    nextBtn.addEventListener("click", showNextMonth);
+
+    function showCalendar() {
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const lastDay = new Date(currentYear, currentMonth + 1, 0);
+      const daysInMonth = lastDay.getDate();
+
+      monthYearHeader.textContent = `${getMonthName(currentMonth)} ${currentYear}`;
+
+      const tableBody = document.querySelector("tbody");
+      tableBody.innerHTML = "";
+
+      let date = 1;
+      for (let i = 0; i < 6; i++) {
+        const row = document.createElement("tr");
+
+        for (let j = 0; j < 7; j++) {
+          if (i === 0 && j < firstDay.getDay()) {
+            const cell = document.createElement("td");
+            row.appendChild(cell);
+          } else if (date > daysInMonth) {
+            break;
+          } else {
+            const cell = document.createElement("td");
+            cell.textContent = date;
+            row.appendChild(cell);
+
+            const event = events.find(
+              (event) =>
+                event.date.getFullYear() === currentYear &&
+                event.date.getMonth() === currentMonth &&
+                event.date.getDate() === date
+            );
+
+            if (event) {
+              const eventElement = document.createElement("div");
+              eventElement.classList.add("event");
+              eventElement.textContent = event.title;
+              cell.appendChild(eventElement);
+            }
+
+            date++;
+          }
+        }
+
+        tableBody.appendChild(row);
+      }
+    }
+
+    function showPreviousMonth() {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      showCalendar();
+    }
+
+    function showNextMonth() {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      showCalendar();
+    }
+
+    function getMonthName(monthIndex) {
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      return monthNames[monthIndex];
+    }
+
+    showCalendar();
+  </script>
+</body>
+</html>

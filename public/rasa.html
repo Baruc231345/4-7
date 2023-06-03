@@ -26,7 +26,25 @@
 
             <div class="input-field">
               <label>Contact Number </label>
-              <input type="text" id="contact" placeholder="Enter your mobile number" >
+              <input type="text" id="contact_number" placeholder="Enter your mobile number" >
+            </div>
+
+            <div class="input-field">
+              <label for="requestor_information">Requestor Information</label>
+              <div class="select-wrapper">
+                <select id="requestor_information" onchange="updateContactLabel()">
+                  <option value="" disabled selected>Select Description</option>
+                  <option value="Student_Leader">Student Leader</option>
+                  <option value="Student">Student</option>
+                  <option value="Teacher">Teacher</option>
+                  <option value="Admin">Staff</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="input-field">
+              <label id ="requestor">Here! </label>
+              <input type="text" id="requestor_type" placeholder="Enter your Requestor Type" >
             </div>
 
           </div>
@@ -43,10 +61,10 @@
             </div>
 
             <div class="input-field">
-              <label for="event_day">Event Date/Day</label>
-              <input type="date" id="event_day" placeholder="Date">
+              <label>Event Date/Day</label>
+              <input type="date" id="event_day" placeholder="Date" onchange="formatDate()" >
             </div>
-            
+
             <div class="input-field">
               <label for="event_description">Event Description</label>
               <div class="select-wrapper">
@@ -67,12 +85,12 @@
 
             <div class="input-field">
               <label>Purpose/Objective</label>
-              <input type="text" id="objective"placeholder="Specify the purpose" >
+              <input type="text" id="purpose_objectives" placeholder="Specify the purpose" >
             </div>
 
             <div class="input-field">
               <label>How many days do you require use of the facility?</label>
-              <input type="text" id="facility"placeholder="Specify the days" >
+              <input type="text" id="required_day" placeholder="Specify the days" >
             </div>
 
             <div class="input-field">
@@ -86,7 +104,8 @@
             </div>
             </div>  
 
-
+        <div class="mid">
+          <div class="top">
           <span class="title">Facilities Needed</span>
           <p class="text">*please check all rooms/facilities you plan to use</p>
           <div class="fields3">
@@ -94,59 +113,86 @@
             <label for="myRadioId" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId" class="radio_input">
               <div class="radio_radio"></div>
-               Gymnasium
+              Auditorium 
             </label>
-
-            <label for="myRadioId1" class="radio">
-              <input type="checkbox" name="myRadioField" id="myRadioId1" class="radio_input">
-              <div class="radio_radio"></div>
-              Kitchen Area
-            </label>
-
-            <label for="myRadioId2" class="radio">
-              <input type="checkbox" name="myRadioField" id="myRadioId2" class="radio_input">
-              <div class="radio_radio"></div>
-               Main Lobby
-            </label>
-
-            <label for="myRadioId3" class="radio">
-              <input type="checkbox" name="myRadioField" id="myRadioId3" class="radio_input">
-              <div class="radio_radio"></div>
-              Multi Purpose Hall
-            </label>
+ 
           </div>
           <div class="row2">
             <label for="myRadioId4" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId4" class="radio_input">
               <div class="radio_radio"></div>
-              Classrooms
+              Food and Beverage Room
+            </label>
+            
+          </div>
+
+          <div class="row3">
+           
+            <label for="myRadioId7" class="radio">
+              <input type="checkbox" name="myRadioField" id="myRadioId7" class="radio_input">
+              <div class="radio_radio"></div>
+              Main Lobby
             </label>
 
+            <div class="row7">
             <label for="myRadioId5" class="radio">
               <input type="checkbox" name="myRadioField" id="myRadioId5" class="radio_input">
               <div class="radio_radio"></div>
               Dance Studio 
             </label>
-
-            <label for="myRadioId6" class="radio">
-              <input type="checkbox" name="myRadioField" id="myRadioId6" class="radio_input">
-              <div class="radio_radio"></div>
-              Auditorium 
-            </label>
-
-            <label for="myRadioId7" class="radio">
-              <input type="checkbox" name="myRadioField" id="myRadioId7" class="radio_input">
-              <div class="radio_radio"></div>
-              Food and Beverage Room
-            </label>
           </div>
+
+            </div>
+
+              <div class="row4">
+
+                <label for="myRadioId1" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId1" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Multi Purpose Hall
+                </label>
+
+              </div>
+
+              <div class="row5">
+
+                <label for="myRadioId2" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId2" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Gymnasium
+                </label>
+
+              </div>
+
+              <div class="row6">
+
+                <label for="myRadioId3" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId3" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Classrooms
+                </label>
+
+              </div>
+
+        <div class="row7">
+
+        <label for="myRadioId6" class="radio">
+        <input type="checkbox" name="myRadioField" id="myRadioId6" class="radio_input">
+        <div class="radio_radio"></div>
+        Kitchen Area
+            </label>
+
+        </div>
+
+
+        </div>
           </div>
 
           <div class="details personal">
             <span class="title">Equipment Needed</span>
             <p class="text">*please check all equipment you plan to use</p>
             <div class="fields4">
-
+              
               <p class="text1">MIS/IT</p>
               <label for="myRadioId_1" class="radio2">
                 <input type="checkbox" name="myRadioField" id="myRadioId_1" class="radio_input1">
@@ -248,6 +294,8 @@
                   <input type="time" placeholder="End of Aircon Time" id="end-time" disabled>
                 </div>
 
+  
+                </div>
 
                 <div class="input-other">
                   <label for="myRadioId-7" class="radio3">
@@ -257,33 +305,66 @@
                   </label>
                 
                   <input type="text" placeholder="Other/s" id="otherInput" disabled>
-                </div>
+              </div>
+
+              
         </div>
         </div>
         </div>
 
         <div class="form third">
-      
-              <button onclick="validateForm()">Testing Button</button>
+      <a href="https://signaturely.com/signature-downloaded">Create your own signature</a>
+              <button onclick="displayNotice()">Testing Button</button>
             </div>
-  
             </div>
           </div>
+
+          <div class="form fourth" style="height: 500px;">
+            <div id ="form_sign"></div>
+            <div id = "text_signature">Venue Approval</div>
+            <div id ="form_sign2">
+              <div id ="form_sign2"></div>
+              <div id = "text_signature2">OSA Approval</div>
+            </div>
+          </div>
+  
       </form>
 </body>
+<script>
 
-<script>  
+const image_input = document.querySelector("#image_input");
+const image_input2 = document.querySelector("#image_input2");
+var upload_image = "";
+var upload_image2 = "";
 
+image_input.addEventListener("change", function(){
+  const reader = new FileReader();
+  reader.addEventListener("load",() =>{
+    upload_image = reader.result
+    document.querySelector("#form_sign").style.backgroundImage = `url(${upload_image})`;
+  });
+  reader.readAsDataURL(this.files[0]);
+})
+
+image_input2.addEventListener("change", function(){
+  const reader = new FileReader();
+  reader.addEventListener("load",() =>{
+    upload_image = reader.result
+    document.querySelector("#form_sign2").style.backgroundImage = `url(${upload_image})`;
+  });
+  reader.readAsDataURL(this.files[0]);
+})
+
+/*
 function validateForm() {
-
   var a = document.forms["myForm"]["event_name"].value;
   var b = document.forms["myForm"]["event_day"].value;
   var c = document.forms["myForm"]["event_description"].value;
   var d = document.forms["myForm"]["full_name"].value;
-  var e = document.forms["myForm"]["contact"].value;
+  var e = document.forms["myForm"]["contact_number"].value;
   var f = document.forms["myForm"]["participants"].value;
-  var g = document.forms["myForm"]["objective"].value;
-  var h = document.forms["myForm"]["facility"].value;
+  var g = document.forms["myForm"]["purpose_objectives"].value;
+  var h = document.forms["myForm"]["required_day"].value;
   var i = document.forms["myForm"]["start_time"].value;
   var j = document.forms["myForm"]["end_time"].value;
 
@@ -296,6 +377,7 @@ function validateForm() {
   }
   else displayNotice();
 }
+*/
 
 
 
@@ -346,38 +428,12 @@ const event_day1 = document.getElementById("event_day");
 const start_time1 = document.getElementById("start_time");
 const end_time1 = document.getElementById("end_time");
 const event_description1 = document.getElementById("event_description");
-
-/*
-
-form.addEventListener("submit", () => {
-  const start_time = start_time1.value;
-  const end_time = end_time1.value;
-  const full_name = full_name1.value;
-  const event_name= event_name1.value
-  const event_description = event_description1.value;
-  const event_day = event_day1.value;
-
-  // Create an object to store the start and end times
-  const data = {
-    start_time: start_time,
-    end_time: end_time,
-    full_name: full_name,
-    event_name: event_name,
-    event_description: event_description,
-    event_day: event_day
-
-  };
-
-  // Serialize the data object to a JSON string
-  const data_serialized = JSON.stringify(data);
-
-  // Store the serialized data in localStorage
-  localStorage.setItem('myData', data_serialized);
-
-  // Redirect to another page
-  window.location.href = "/submitRasa";
-});
-*/
+const requestor_information = document.getElementById("requestor_information");
+const requestor_type = document.getElementById("requestor_type");
+const required_day = document.getElementById("required_day");
+const contact_number = document.getElementById("contact_number");
+const participants = document.getElementById("participants");
+const purpose_objectives = document.getElementById("purpose_objectives");
 
 form.addEventListener("submit", () => {
   var startTime = document.getElementById("start_time").value;
@@ -392,6 +448,12 @@ form.addEventListener("submit", () => {
       event_day: event_day1.value,
       start_time: startTime,
       end_time: endTime,
+      requestor_information: requestor_information.value,
+      requestor_type: requestor_type.value,
+      required_day: required_day.value,
+      contact_number: contact_number.value,
+      participants: participants.value,
+      purpose_objectives: purpose_objectives.value,
     };  
     fetch("/api/rasatesting", {
       method: "POST",
@@ -402,13 +464,11 @@ form.addEventListener("submit", () => {
     })
     .then(response => response.json())
     .then(data => {
-      // Assuming the response data contains the generated id
       const id = data.id;
       window.location.href = `/ejsrasa/${data.id}`;
     })
     .catch(error => {
       console.error(error);
-      // Handle error here
     });
   }
 });
@@ -443,58 +503,41 @@ function toggleOtherInput(checkbox) {
   alert("You disagreed to the notice.");
 }
 }
-  </script>  
-</html>
 
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Testing</title>
+function updateContactLabel() {
+    const requestorInformation = document.getElementById("requestor_information");
+    const requestor_type = document.getElementById("requestor");
+    const requestor= document.getElementById("requestor_type");
 
-</head>
-<body>
-  <form id="myForm" method="POST" action="/submitrasa">
-    <label for="full_name">Full Name:</label>
-    <input type="text" id="full_name" name="full_name" value="">
-
-    <label for="event_name">Event Name:</label>
-    <input type="text" id="event_name" name="event_name" value="">
-
-    <label for="event_description">Event Description:</label>
-    <input type="text" id="event_description" name="event_description" value="">
-
-    <label for="event_day">Event Day:</label>
-    <input type="text" id="event_day" name="event_day" value="">
-
-    <label for="start_time">Start Time:</label>
-    <input type="text" id="start_time" name="start_time" value="">
-
-    <label for="end_time">End Time:</label>
-    <input type="text" id="end_time" name="end_time" value="">
+    if (requestorInformation.value === "Student_Leader") {
+      requestor_type.textContent = "Organization Name";
+      requestor.classList.add("long-input");
+    } else if (requestorInformation.value === "Student") {
+      requestor_type.textContent = "Course and Section";
+      requestor.classList.add("long-input");
+    } else if (requestorInformation.value === "Teacher") {
+      requestor_type.textContent = "Department";
+      requestor.classList.add("long-input");
+    } else if (requestorInformation.value === "Admin") {
+      requestor_type.textContent = "Department";
+      requestor.classList.add("long-input");
+    } else {
+      requestor_type.textContent = "Department";
+    }
     
-    <button type="submit" id="submit">Submit</button>
-  </form>
-  <script>
-    const form = document.getElementById("myForm");
-    const submitBtn = document.getElementById("submit");
+    // Clear the input value
+    requestor.value = "";
+  }
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const data = {
-        full_name: document.getElementById("full_name").value,
-        event_name: document.getElementById("event_name").value,
-        event_description: document.getElementById("event_description").value,
-        event_day: document.getElementById("event_day").value,
-        start_time: document.getElementById("start_time").value,
-        end_time: document.getElementById("end_time").value,
-      };
-
-      localStorage.setItem("myData", JSON.stringify(data));
-      window.location.href = "/submitrasa";
-    });
-  </script>
-</body>
+  function formatDate() {
+    const eventDayInput = document.getElementById("event_day");
+    const selectedDate = eventDayInput.value;
+    const dateObject = new Date(selectedDate);
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+    eventDayInput.value = formattedDate;
+  }
+  </script>  
 </html>

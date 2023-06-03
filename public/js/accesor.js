@@ -18,18 +18,3 @@
           });    
         };
       }
-      /*
-      {
-        const iframeContainer = document.getElementById("mainscreen");
-        const schedButton = document.getElementById("schedButton");
-    
-        schedButton.addEventListener("click", function() {
-          const iframe = document.createElement("iframe");
-          iframe.src = '../Desktop/calendar-master/docs/index.html';
-          iframe.width = '98%';
-          iframe.height = '100%';
-          iframe.style="float:right";
-          iframeContainer.appendChild(iframe);      
-        });   
-      }
-      */

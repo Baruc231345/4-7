@@ -11,124 +11,365 @@
 
 <body>
   <div class="container">
-    <header>Summary Rasa Form</header>
-    <form onsubmit="return false;" id="form">
+    <header>Rasa Form</header>
+      <form name="myForm" onsubmit="return false;" id="form">
       <div class="form first">
         <div class="details personal">
           <span class="title">Personal Details</span>
+
           <div class="fields1">
             <div class="input-field">
               <label>Full Name</label>
-              <input type="text" id="full_name" value="<%= inputted_table.full_name %>">
+              <input type="text" id="full_name" value="<%= inputted_table.full_name %>" >
             </div>
+
             <div class="input-field">
-              <label>Contact Number</label>
-              <input type="text" placeholder="Enter your mobile number">
+              <label>Contact Number </label>
+              <input type="text" id="contact_number" value="<%= inputted_table.contact_number %>" >
             </div>
+
+            <div class="input-field">
+              <label>Requestor Information</label>
+              <input type="text" id="requestor_information" value="<%= inputted_table.requestor_information %>">
+            </div>
+
+            <div class="input-field">
+              <label>Requestor Type </label>
+              <input type="text" id="requestor_type" value="<%= inputted_table.requestor_type %>" >
+            </div>
+
+          </div>
           </div>
         </div>
-        <div class="form second">
-          <div class="details personal">
-            <span class="title">Event Information</span>
-            <div class="fields2">
-              <div class="input-field">
-                <label>Event Name</label>
-                <input type="text" id="event_name" value="<%= inputted_table.event_name %>">
-              </div>
-              <div class="input-field">
-                <label>Event Date/Day</label>
-                <input type="date" id="event_day" value="<%= inputted_table.event_day %>">
-              </div>
-              <div class="input-field">
-                <label>Event Description</label>
-                <input type="text" id="event_description" value="<%= inputted_table.event_description %>">
-              </div>
-              <div class="input-field">
-                <label>Expected Participants</label>
-                <input type="number" placeholder="# of Participants">
-              </div>
-              <div class="input-field">
-                <label>Purpose/Objective</label>
-                <input type="text" value="<%= rasaID %>">
-              </div>
-              <div class="input-field">
-                <label>How many days do you require use of the facility?</label>
-                <input type="text" placeholder="Specify the days">
-              </div>
-              <div class="input-field">
-                <label>Start Time</label>
-                <input type="time" id="start_time" value="<%= inputted_table.start_time %>">
-              </div>
-              <div class="input-field">
-                <label>End Time</label>
-                <input type="time" id="end_time" value="<%= inputted_table.end_time %>">
-              </div>
+      <div class="form second">
+        <div class="details personal">
+          <span class="title">Event Information</span>
+
+          <div class="fields2">
+            <div class="input-field">
+              <label>Event Name</label>
+              <input type="text" id="event_name" value="<%= inputted_table.event_name %>" >
             </div>
-            <div class="aircon">
-              <label for="myRadioId-6" class="radio3">
-                <input type="checkbox" name="myRadioField" id="myRadioId-6" class="radio_input2">
-                <div class="radio_radio2"></div>
-                Aircon Time
-              </label>
-              <div class="input-aircon">
-                <input type="time" placeholder="Start of Aircon Time" id="start-time" disabled>
-              </div>
-              <p class="text1">to</p>
-              <div class="input-aircon">
-                <input type="time" placeholder="End of Aircon Time" id="end-time" disabled>
-              </div>
-              <div class="input-other">
-                <label for="myRadioId-7" class="radio3">
-                  <input type="checkbox" name="myRadioField" id="myRadioId-7" class="radio_input2" onclick="toggleOtherInput(this)">
-                  <div class="radio_radio2"></div>
-                  Other:
+
+            <div class="input-field">
+              <label>Event Date/Day</label>
+              <input type="date" id="event_day" value="<%= inputted_table.event_day.toISOString().split('T')[0] %>" onchange="formatDate()">
+            </div>
+
+            <div class="input-field">
+              <label>Event Description</label>
+              <input type="text" id="event_description" value="<%= inputted_table.event_description %>">
+            </div>
+
+            <div class="input-field">
+              <label>Expected Participants</label>
+              <input type="number" id="participants" value="<%= inputted_table.participants %>" >
+            </div>
+
+            <div class="input-field">
+              <label>Purpose/Objective</label>
+              <input type="text" id="purpose_objectives" value="<%= inputted_table.purpose_objectives %>" >
+            </div>
+
+            <div class="input-field">
+              <label>How many days do you require use of the facility?</label>
+              <input type="text" id="required_day" value="<%= inputted_table.required_day %>" >
+            </div>
+
+            <div class="input-field">
+              <label>Start Time</label>
+              <input type="time" id = "start_time" value="<%= inputted_table.start_time %>">
+            </div>
+
+            <div class="input-field">
+              <label>End Time</label>
+              <input type="time" id="end_time" value="<%= inputted_table.end_time %>">
+            </div>
+            </div>  
+
+        <div class="mid">
+          <div class="top">
+          <span class="title">Facilities Needed</span>
+          <p class="text">*please check all rooms/facilities you plan to use</p>
+          <div class="fields3">
+            <div class="row1">
+            <label for="myRadioId" class="radio">
+              <input type="checkbox" name="myRadioField" id="myRadioId" class="radio_input">
+              <div class="radio_radio"></div>
+              Auditorium 
+            </label>
+ 
+          </div>
+          <div class="row2">
+            <label for="myRadioId4" class="radio">
+              <input type="checkbox" name="myRadioField" id="myRadioId4" class="radio_input">
+              <div class="radio_radio"></div>
+              Food and Beverage Room
+            </label>
+            
+          </div>
+
+          <div class="row3">
+           
+            <label for="myRadioId7" class="radio">
+              <input type="checkbox" name="myRadioField" id="myRadioId7" class="radio_input">
+              <div class="radio_radio"></div>
+              Main Lobby
+            </label>
+
+            <div class="row7">
+            <label for="myRadioId5" class="radio">
+              <input type="checkbox" name="myRadioField" id="myRadioId5" class="radio_input">
+              <div class="radio_radio"></div>
+              Dance Studio 
+            </label>
+          </div>
+
+            </div>
+
+              <div class="row4">
+
+                <label for="myRadioId1" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId1" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Multi Purpose Hall
                 </label>
-                <input type="text" placeholder="Other/s" id="otherInput" disabled>
+
               </div>
+
+              <div class="row5">
+
+                <label for="myRadioId2" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId2" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Gymnasium
+                </label>
+
+              </div>
+
+              <div class="row6">
+
+                <label for="myRadioId3" class="radio">
+                  <input type="checkbox" name="myRadioField" id="myRadioId3" class="radio_input">
+                  <div class="radio_radio"></div>
+                  Classrooms
+                </label>
+
+              </div>
+
+        <div class="row7">
+
+        <label for="myRadioId6" class="radio">
+        <input type="checkbox" name="myRadioField" id="myRadioId6" class="radio_input">
+        <div class="radio_radio"></div>
+        Kitchen Area
+            </label>
+
+        </div>
+
+
+        </div>
+          </div>
+
+          <div class="details personal">
+            <span class="title">Equipment Needed</span>
+            <p class="text">*please check all equipment you plan to use</p>
+            <div class="fields4">
+              
+              <p class="text1">MIS/IT</p>
+              <label for="myRadioId_1" class="radio2">
+                <input type="checkbox" name="myRadioField" id="myRadioId_1" class="radio_input1">
+                <div class="radio_radio1"></div>
+                Sound System
+
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Sound System" id="sound-system_input" disabled>
+                </div>         
+              </label>
+  
+              <label for="myRadioId_2" class="radio2">
+                <input type="checkbox" name="myRadioField" id="myRadioId_2" class="radio_input1">
+                <div class="radio_radio1"></div>
+                Microphone
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Microphone" id="microphone_input" disabled>
+                </div>   
+              </label>
+  
+              <label for="myRadioId_3" class="radio2">
+                <input type="checkbox" name="myRadioField" id="myRadioId_3" class="radio_input1">
+                <div class="radio_radio1"></div>
+                LCD Projector
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Lcd Projector" id="lcd-projector_input" disabled>
+                </div>    
+
+              </label>
+  
+              <label for="myRadioId_4" class="radio2">
+                <input type="checkbox" name="myRadioField" id="myRadioId_4" class="radio_input1">
+                <div class="radio_radio1"></div>
+                Widescreen
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Sound System" id="wide-screen_input" disabled>
+                </div> 
+              </label>
+            </div>
+
+            <div class="fields5">
+              <p class="text1">Bag</p>
+              
+              <label for="myRadioId-1" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-1" class="radio_input2">
+                <div class="radio_radio2"></div>
+                Chair/s &nbsp &nbsp &nbsp 
+
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Chair/s" id="chair_input" disabled>
+                </div>    
+          
+              </label>
+  
+              <label for="myRadioId-2" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-2" class="radio_input2">
+                <div class="radio_radio2"></div>
+                Table/s
+
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Table/s" id="table_input" disabled>
+                </div>    
+              </label>
+              <div class="row3">
+              <label for="myRadioId-3" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-3" class="radio_input2">
+                <div class="radio_radio2"></div>
+                Black Panel
+
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Black Panel" id="black-panel_input" disabled>
+                </div>  
+              </label>
+  
+              <label for="myRadioId-4" class="radio3">
+                <input type="checkbox" name="myRadioField" id="myRadioId-4" class="radio_input2">
+                <div class="radio_radio2"></div>
+                Whiteboard
+             
+                <div class="input-wide">
+                  <input type="text" placeholder="Number of Whiteboard" id="whiteboard_input" disabled>
+                </div>  
+              </label>
+            </div>
+              <div class="aircon">
+                <label for="myRadioId-6" class="radio3">
+                  <input type="checkbox" name="myRadioField" id="myRadioId-6" class="radio_input2">
+                  <div class="radio_radio2"></div>
+                  Aircon Time
+                </label>
+              
+                <div class="input-aircon">
+                  <input type="time" placeholder="Start of Aircon Time" id="start-time" disabled>
+                </div>
+              
+                <p class="text1">to</p>
+              
+                <div class="input-aircon">
+                  <input type="time" placeholder="End of Aircon Time" id="end-time" disabled>
+                </div>
+
+                
+                <div class="input-other">
+                  <label for="myRadioId-7" class="radio3">
+                    <input type="checkbox" name="myRadioField" id="myRadioId-7" class="radio_input2" onclick="toggleOtherInput(this)">
+                    <div class="radio_radio2"></div>
+                    Other: 
+                  </label>
+                
+                  <input type="text" placeholder="Other/s" id="otherInput" disabled>
+                </div>
+              </div>
+        </div>
+        </div>
+            </div>
+            <div class="buttons">
+              <button type="submit" id="btnSubmit">Submit</button>
+              <button type="button" id="btnBack" onclick="handleClick()">Back</button>
             </div>
           </div>
-          <div class="buttons">
-            <button type="submit" id="btnSubmit">Submit</button>
-            <button type="button" id="btnBack" onclick="handleClick()">Back</button>
+          <div class="form fourth" style="height: 500px;">
+            <% if (inputted_table.form_sign) { %>
+              <div id="form_sign">
+                <img src="data:image/png;base64, <%= inputted_table.form_sign.toString('base64') %>" >
+                <div id="text_signature">Venue Approval</div>
+              </div>
+            <% } else { %>
+              <div id="form_sign"></div>
+              <div id="text_signature">Venue Approval</div>
+            <% } %>
+            
+            <% if (inputted_table.form_sign2) { %>
+              <div id="form_sign2">
+                <img src="data:image/png;base64, <%= inputted_table.form_sign2.toString('base64') %>" >
+                <div id="text_signature2">Osa Approval</div>
+              </div>
+            <% } else { %>
+              <div id="form_sign2"></div>
+              <div id="text_signature2">Osa Approval</div>
+            <% } %>
           </div>
-        </div>
-      </div>
-    </form>
-  </div>
-  <script>
-
-
-document.getElementById('btnSubmit').addEventListener('click', function () {
-  const rasatesting2 = {
-    full_name: document.getElementById('full_name').value,
-    event_name: document.getElementById('event_name').value,
-    event_description: document.getElementById('event_description').value,
-    event_day: document.getElementById('event_day').value,
-    start_time: document.getElementById('start_time').value,
-    end_time: document.getElementById('end_time').value,
-  };
-  console.log(rasatesting2);
   
-  fetch("/api/rasatesting2", {
-    method: "POST",
-    body: JSON.stringify(rasatesting2),
-    headers: {
-      "Content-type": "application/json"
-    }
-  })
-    .then(response => response.json())
-    .then(data => {
-      //const id = req.params.id;
-      alert("Success!"); 
-      setTimeout(function() {
-        window.location.href = "/rasaview";
-      }, 3000);
-      
+      </form>
+</body>
+<script>
+
+function formatDate() {
+    const eventDayInput = document.getElementById("event_day");
+    const selectedDate = eventDayInput.value;
+    const dateObject = new Date(selectedDate);
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+    eventDayInput.value = formattedDate;
+  }
+
+  document.getElementById('btnSubmit').addEventListener('click', function () {
+    const rasatesting2 = {
+      full_name: document.getElementById('full_name').value,
+      event_name: document.getElementById('event_name').value,
+      event_description: document.getElementById('event_description').value,
+      event_day: document.getElementById('event_day').value,
+      start_time: document.getElementById('start_time').value,
+      end_time: document.getElementById('end_time').value,
+      contact_number: document.getElementById('contact_number').value,
+      requestor_information: document.getElementById('requestor_information').value,
+      requestor_type: document.getElementById('requestor_type').value,
+      participants: document.getElementById('participants').value,
+      required_day: document.getElementById('required_day').value,
+      purpose_objectives: document.getElementById('purpose_objectives').value,
+    };
+    console.log(rasatesting2);
+    
+    fetch("/api/rasatesting2", {
+      method: "POST",
+      body: JSON.stringify(rasatesting2),
+      headers: {
+        "Content-type": "application/json"
+      }
     })
-    .catch(error => {
-      console.error(error);
-    });
-});
-  </script>
+      .then(response => response.json())
+      .then(data => {
+        //const id = req.params.id;
+        alert("Success!"); 
+        setTimeout(function() {
+          window.location.href = "/rasaview";
+        }, 3000);
+        
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  });
+    </script>
 </body>
 </html>

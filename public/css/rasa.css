@@ -14,7 +14,7 @@ body{
 .container{
     position: relative;
     max-width: 900px;
-    height: 1350px;
+    height: 2000px;
     width: 100%;
     margin-bottom: 15px ;
     border-radius: 6px;
@@ -23,6 +23,7 @@ body{
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
+
 
 .container input{
     width: 100%;
@@ -182,6 +183,10 @@ form button:hover{
 }
 */
 
+.form.third{
+    margin-top: 60px;
+}
+
 .form{
   display: flex;
   flex-direction: column;
@@ -206,10 +211,24 @@ form.fields4, form.fields5{
     margin-top: 5px;
 }
 
+.top{
+    width: 1000px;
+}
+
+
 form button i,
 form .backBtn i{
     margin: 0 6px;
 }
+
+.fields4,.fields5{
+    height: 100px;
+}
+
+.mid{
+    display: flex;
+}
+
 
 form .backBtn i,
 form .buttons{
@@ -384,6 +403,45 @@ form .backBtn i, form .backBtn2 i{
     margin-left: 10px; /* Adjust the desired amount of top margin */
   }
 
-#event_description{
-    width: 100%;
+
+  .form.fourth{
+    display: flex;
+    flex-direction: column;
+    padding-top: 90px;
 }
+
+#form_sign {
+    width: 375px;
+    height: 150px;
+    background-position: center;
+    background-size: cover;
+    border-bottom: 3px solid rgb(0, 0, 0);
+    margin-bottom: 4px;
+  }
+
+  #form_sign2 {
+    width: 375px;
+    height: 150px;
+    background-position: center;
+    background-size: cover;
+    border-bottom: 3px solid rgb(0, 0, 0);
+    margin-bottom: 4px;
+  }
+
+  #text_signature{
+    padding-left: 120px;
+  }
+
+  #text_signature2{
+    padding-left: 120px;
+  }
+
+  #requestor_type.long-input {
+    width: 300px; /* Adjust the width as per your requirements */
+  }
+
+.buttons{
+    padding-top: 50px;
+    padding-left: 200px;
+}
+
