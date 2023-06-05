@@ -39,16 +39,30 @@
       {
         date: new Date(2023, 4, 15),
         title: "Meeting with John",
-        description: "Discuss new project proposal"
+        description: "Discuss new project proposal",
+        id: 309
+      },
+      {
+      date: new Date(2023, 4, 17),
+      title: "Multi-day Event",
+      description: "This event lasts for 3 days",
+      duration: 3,
+      },
+      {
+        date: new Date(2023, 4, 16),
+        title: "Event Title",
+        description: "Event Description"
       },
       {
         date: new Date(2023, 4, 16),
         title: "Sherwin",
         description: "Sherwin",
-        
-        date: new Date(2023, 4, 16),
+      },
+      { 
+        date: new Date(2023, 4, 17),
         title: "Test",
-        description: "Test"
+        description: "Test",
+        duraion: 1
       },
       {
         date: new Date(2023, 4, 20),
@@ -96,7 +110,7 @@
       for (let i = 0; i < 6; i++) {
         const row = document.createElement("tr");
 
-        for (let j = 0; j < 7; j++) {
+      for (let j = 0; j < 7; j++) {
           if (i === 0 && j < firstDay.getDay()) {
             const cell = document.createElement("td");
             row.appendChild(cell);
@@ -108,18 +122,32 @@
             row.appendChild(cell);
 
             const event = events.find(
-              (event) =>
-                event.date.getFullYear() === currentYear &&
-                event.date.getMonth() === currentMonth &&
-                event.date.getDate() === date
-            );
+      (event) =>
+        event.date.getFullYear() === currentYear &&
+        event.date.getMonth() === currentMonth &&
+        event.date.getDate() <= date &&
+        event.date.getDate() + (event.duration || 1) - 1 >= date
+    );
 
-            if (event) {
-              const eventElement = document.createElement("div");
-              eventElement.classList.add("event");
-              eventElement.textContent = event.title;
-              cell.appendChild(eventElement);
-            }
+    if (event) {
+        const cellEventsContainer = document.createElement("div");
+        cellEventsContainer.classList.add("event-container");
+        cell.appendChild(cellEventsContainer);
+
+        for (const event of events) {
+        if (
+          event.date.getFullYear() === currentYear &&
+          event.date.getMonth() === currentMonth &&
+          event.date.getDate() <= date &&
+          event.date.getDate() + (event.duration || 1) - 1 >= date
+        ) {
+            const eventElement = document.createElement("div");
+            eventElement.classList.add("event");
+            eventElement.innerHTML = `<strong>${event.title}</strong><br>${event.description}`;
+            cellEventsContainer.appendChild(eventElement);
+          }
+        }
+      }
 
             date++;
           }

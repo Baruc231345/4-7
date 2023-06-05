@@ -1,8 +1,13 @@
 const events = [  
   {   
     date: new Date(2023, 4, 15), // May 15, 2023
-    title: "Meeting with John",
+    title: "Meeting with John12",
     description: "Discuss new project proposal"  
+  },
+  {   
+    date: new Date(2023, 4, 16), // May 16, 2023
+    title: "Working at Home",
+    description: "Testing"  
   },
   {   
     date: new Date(2023, 4, 16), // May 16, 2023
@@ -14,11 +19,6 @@ const events = [
     title: "asdada",
     description: "adsada"  
   },  
-    {     
-        date: new Date(2023, (5) - 1, 20),    
-        title: "Birthday party",    
-        description: "Celebrate Jane's birthday"  
-    },
 ];
 const addEventBtn = document.getElementById('add-event-btn');
 addEventBtn.addEventListener('click', () => {
@@ -141,7 +141,7 @@ nextBtn.addEventListener('click', () => {
   displayCalendarDates(currentMonth, currentYear);
 });
 
-EventsToCalendar(events) {
+function EventsToCalendar(events) {
   const tableCells = document.querySelectorAll(".calendar-date");
 
   // Clear existing events
@@ -152,14 +152,15 @@ EventsToCalendar(events) {
   });
 
   events.forEach((event) => {
-    const startDate = event.date;
-    const endDate = new Date(event.date.getTime() + (24 * 60 * 60 * 1000)); // Add one day to the start date
+    const startDate = new Date(event.date);
+    const endDate = new Date(event.date);
+    endDate.setDate(endDate.getDate() + 1); // Add one day to the start date
     const eventTitle = event.title;
     const eventDescription = event.description;
 
     let currentDay = startDate;
-    while (currentDay <= endDate) {
-      const date = currentDay.getDfunction addate();
+    while (currentDay < endDate) {
+      const date = currentDay.getDate();
       const month = currentDay.getMonth();
       const year = currentDay.getFullYear();
 
@@ -202,7 +203,7 @@ EventsToCalendar(events) {
         }
       }
 
-      currentDay = new Date(currentDay.getTime() + (24 * 60 * 60 * 1000)); // Move to the next day
+      currentDay.setDate(currentDay.getDate() + 1); // Move to the next day
     }
   });
 }
